@@ -63,8 +63,8 @@ $(document).on('deviceready', function() {
 
     $loginButton.on('click', function() {
         googleapi.authorize({
-            client_id: 'YOUR CLIENT ID HERE',
-            client_secret: 'YOUR CLIENT SECRET HERE',
+            client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
+            client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
             scope: 'https://www.googleapis.com/auth/analytics.readonly'
         }).done(function(data) {
