@@ -12,6 +12,6 @@
     <preference name="webviewbounce" value="true" />
     <preference name="orientation" value="portrait" />
     
-    <gap:plugin name="InAppBrowser" version="~2.2" />
+    <gap:plugin name="com.phonegap.plugins.InAppBrowser" />
 
 </widget>
