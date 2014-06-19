@@ -71,7 +71,11 @@ $(document).on('deviceready', function() {
             $loginStatus.html('Access Token: ' + data.access_token);
             //ocultar boton
             $("#login").hide();
-            $("#profile").append(data);
+           for (var i in data) {
+        out += i + ": " + data[i] + "\n";
+    }
+
+    alert(out);
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
