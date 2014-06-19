@@ -66,7 +66,7 @@ $(document).on('deviceready', function() {
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
-            scope: 'https://www.googleapis.com/auth/analytics.readonly'
+            scope: 'https://www.googleapis.com/auth/plus.login'
         }).done(function(data) {
             $loginStatus.html('Access Token: ' + data.access_token);
         }).fail(function(data) {
