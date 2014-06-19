@@ -39,7 +39,7 @@ var googleapi = {
                     client_id: options.client_id,
                     client_secret: options.client_secret,
                     redirect_uri: options.redirect_uri,
-                    grant_type: 'authorization_code'
+                    grant_type: 'profile'
                 }).done(function(data) {
                     deferred.resolve(data);
                 }).fail(function(response) {
@@ -74,3 +74,12 @@ $(document).on('deviceready', function() {
         });
     });
 });
+profile: function(){
+   var user = gapi.client.plus.people.get( {'userId' : 'me'} );   user.execute(function(profile)){
+      $('#profile').append(
+            $('<p><img src=\"' + profile.image.url + '\"></p>')      );
+      $('#profile').append(
+            $('<p>Hello ' + profile.displayName + '</p>')
+      ); 
+   });
+}
