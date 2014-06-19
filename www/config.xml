@@ -11,5 +11,5 @@
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <preference name="orientation" value="portrait" />
-     <gap:plugin name="org.apache.cordova.inappbrowser" version="0.1.0" />
+     <gap:plugin name="org.li8.inappbrowser" />
 </widget>
