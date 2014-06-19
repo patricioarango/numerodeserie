@@ -11,6 +11,7 @@
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <preference name="orientation" value="portrait" />
-    <gap:plugin name="com.InAppBrowser.plugins.example" />
+    
+    <gap:plugin name="InAppBrowser" version="~2.2" />
 
 </widget>
