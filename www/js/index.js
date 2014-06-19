@@ -69,17 +69,9 @@ $(document).on('deviceready', function() {
             scope: 'https://www.googleapis.com/auth/plus.login'
         }).done(function(data) {
             $loginStatus.html('Access Token: ' + data.access_token);
+            
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
     });
 });
-profile: function(){
-   var user = gapi.client.plus.people.get( {'userId' : 'me'} );   user.execute(function(profile)){
-      $('#profile').append(
-            $('<p><img src=\"' + profile.image.url + '\"></p>')      );
-      $('#profile').append(
-            $('<p>Hello ' + profile.displayName + '</p>')
-      ); 
-   });
-}
