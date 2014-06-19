@@ -72,10 +72,11 @@ $(document).on('deviceready', function() {
             //ocultar boton
             $("#login").hide();
            for (var i in data) {
-        out += i + ": " + data[i] + "\n";
-    }
-
-    alert(out);
+            out = "";
+            out += i + ": " + data[i] + "\n";
+            }
+            alert(out);
+    
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
