@@ -85,7 +85,7 @@ function loadProfile(){
   }
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "w780" // or w500 
+    var tamanio = "w780"; // or w500 
     var query = "2";
     $.post('test2.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
@@ -132,6 +132,7 @@ $(document).on('deviceready', function() {
     var $loginStatus = $('#login_div');
 
     $loginButton.on('click', function() {
+        alert();
         googleapi.authorize({
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
@@ -147,7 +148,7 @@ $(document).on('deviceready', function() {
             alert(data[i]);
             }*/
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
-           gapi.client.load('plus','v1', loadProfile); 
+           //gapi.client.load('plus','v1', loadProfile); 
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
