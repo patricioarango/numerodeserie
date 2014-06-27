@@ -61,7 +61,7 @@ function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w780/"; // or w500 
     var query = "2";
-    $.post('test2.php',{ buscar: query }, function(data) { alert();
+    $.post('http://autowikipedia.es/racing_calendar/m/test2.php',{ buscar: query }, function(data) { alert();
         var maximo = Number(data["results"].length);
         for (var i=0; i<data["results"].length; i++) { 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
@@ -117,7 +117,7 @@ $(document).on('deviceready', function() {
             var toka_toka=data.access_token;
             //ocultar boton
             $("#login").hide();
-            $.post('get_data.php', { parametro: toka_toka}, function(data23) {
+            $.post('http://autowikipedia.es/racing_calendar/m/get_data.php', { parametro: toka_toka}, function(data23) {
                 alert(data23);
             });
            
