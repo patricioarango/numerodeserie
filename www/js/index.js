@@ -122,6 +122,10 @@ $(document).on('deviceready', function() {
             }*/
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
            //gapi.client.load('plus','v1', loadProfile); 
+           $.post('get_data.php', access_token: data.access_token, function(data23) {
+               alert(data23);
+           });
+           /*
            var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token;
            $.getJSON(url, function(data2){
 		        //alert(data2);
@@ -129,7 +133,7 @@ $(document).on('deviceready', function() {
 		        //id
 		        //link
 		        //picture
-		    });
+		    });*/
            /*$.post(url, {}, function(data) {
                alert(data.name);
            },"json");*/
