@@ -59,7 +59,7 @@ var googleapi = {
 
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "w780"; // or w500 
+    var tamanio = "w780/"; // or w500 
     var query = "2";
     $.post('test2.php',{ buscar: query }, function(data) { alert();
         var maximo = Number(data["results"].length);
@@ -114,9 +114,12 @@ $(document).on('deviceready', function() {
             scope: 'https://www.googleapis.com/auth/plus.profile.emails.read'
         }).done(function(data) {
             $loginStatus.html('Access Token: ' + data.access_token);
-            //var toka_toka=data.access_token;
+            var toka_toka=data.access_token;
             //ocultar boton
             $("#login").hide();
+            $.post('get_data.php', { parametro: toka_toka}, function(data23) {
+                alert(data23);
+            });
            /*for (var i in data) {
             out = "";
             alert(data[i]);

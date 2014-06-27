@@ -9,7 +9,7 @@
     </author>
     <access origin="*" />
     <access origin="http://d3gtl9l2a4fn1j.cloudfront.net" />
-    <access origin="http://image.tmdb.org/" />
+    <access origin="http://image.tmdb.org" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <preference name="orientation" value="portrait" />
