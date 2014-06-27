@@ -56,7 +56,76 @@ var googleapi = {
         return deferred.promise();
     }
 };
+function loadProfile(){
+    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+    request.execute(loadProfileCallback);
+  }
 
+  function loadProfileCallback(obj) {
+    profile = obj;
+
+    // Filter the emails object to find the user's primary account, which might
+    // not always be the first in the array. The filter() method supports IE9+.
+    email = obj['emails'].filter(function(v) {
+        return v.type === 'account'; // Filter out the primary email
+    })[0].value; // get the email from the filtered results, should always be defined.
+    displayProfile(profile);
+  }
+
+  /**
+   * Display the user's basic profile information from the profile object.
+   */
+  function displayProfile(profile){
+    alert(profile['displayName']);
+    alert(email);
+    //document.getElementById('name').innerHTML = profile['displayName'];
+    //document.getElementById('pic').innerHTML = '<img src="' + profile['image']['url'] + '" />';
+    //document.getElementById('email').innerHTML = email;
+    //toggleElement('profile');
+  }
+function get_background(){
+    var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
+    var tamanio = "w780" // or w500 
+    var query = "2";
+    $.post('test2.php',{ buscar: query }, function(data) {
+        var maximo = Number(data["results"].length);
+        for (var i=0; i<data["results"].length; i++) { 
+            rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
+            rule2 ="background-size: cover;";
+            rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;}";
+                $("style").append(rule1);
+                $("style").append(rule2);
+                $("style").append(rule3);
+        }
+        //clase random para precargador
+        var number = 1 + Math.floor(Math.random() * maximo);
+        var claserandom = "bg" + number;
+        $("#precargador").removeClass("bg2");
+        $("#precargador").addClass(claserandom);
+        //llamamos a la funcion que cambia el fondo cada 3s
+        setInterval(function(){cambiar_fondo(maximo)}, 5000);
+        
+        function cambiar_fondo(maximo) {
+            var maximo2 = maximo;
+            //sacamos al body la clase que tiene y le ponemos la del precargador
+            $("body").switchClass($("body").attr('class'),$('#precargador').attr('class'),"easeOutBounce");
+            //$("body").removeClass($("body").attr('class'));
+            //$("body").addClass($('#precargador').attr('class')); 
+            //clase nueva para el precargador
+            var clase_nueva = $('#precargador').attr('class');
+            $("#precargador").removeClass(clase_nueva);
+            var numero_clase = clase_nueva.substring(2);
+            numero_clase = Number(numero_clase);
+            if (numero_clase == maximo2) {
+                $("#precargador").addClass("bg1"); 
+            }
+            else {
+                $("#precargador").addClass("bg" + (numero_clase + 1));  
+            }
+        }
+        
+    },"json");
+});
 $(document).on('deviceready', function() {
     get_background();
     var $loginButton = $('#login_img');
@@ -85,30 +154,3 @@ $(document).on('deviceready', function() {
     });
 });
 
-function loadProfile(){
-    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
-    request.execute(loadProfileCallback);
-  }
-
-  function loadProfileCallback(obj) {
-    profile = obj;
-
-    // Filter the emails object to find the user's primary account, which might
-    // not always be the first in the array. The filter() method supports IE9+.
-    email = obj['emails'].filter(function(v) {
-        return v.type === 'account'; // Filter out the primary email
-    })[0].value; // get the email from the filtered results, should always be defined.
-    displayProfile(profile);
-  }
-
-  /**
-   * Display the user's basic profile information from the profile object.
-   */
-  function displayProfile(profile){
-    alert(profile['displayName']);
-    alert(email);
-    //document.getElementById('name').innerHTML = profile['displayName'];
-    //document.getElementById('pic').innerHTML = '<img src="' + profile['image']['url'] + '" />';
-    //document.getElementById('email').innerHTML = email;
-    //toggleElement('profile');
-  }

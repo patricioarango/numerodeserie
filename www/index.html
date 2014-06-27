@@ -84,49 +84,7 @@ border: 1px solid #FFF;
         <script src="js/jquery-ui-1.10.4.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 <script>
-function get_background(){
-	var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-	var tamanio = "w780" // or w500 
-	var query = "2";
-	$.post('test2.php',{ buscar: query }, function(data) {
-		var maximo = Number(data["results"].length);
-		for (var i=0; i<data["results"].length; i++) { 
-			rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
-			rule2 ="background-size: cover;";
-			rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;}";
-				$("style").append(rule1);
-				$("style").append(rule2);
-				$("style").append(rule3);
-		}
-		//clase random para precargador
-		var number = 1 + Math.floor(Math.random() * maximo);
-		var claserandom = "bg" + number;
-		$("#precargador").removeClass("bg2");
-		$("#precargador").addClass(claserandom);
-		//llamamos a la funcion que cambia el fondo cada 3s
-		setInterval(function(){cambiar_fondo(maximo)}, 5000);
-		
-		function cambiar_fondo(maximo) {
-			var maximo2 = maximo;
-			//sacamos al body la clase que tiene y le ponemos la del precargador
-			$("body").switchClass($("body").attr('class'),$('#precargador').attr('class'),"easeOutBounce");
-			//$("body").removeClass($("body").attr('class'));
-			//$("body").addClass($('#precargador').attr('class')); 
-			//clase nueva para el precargador
-			var clase_nueva = $('#precargador').attr('class');
-			$("#precargador").removeClass(clase_nueva);
-			var numero_clase = clase_nueva.substring(2);
-			numero_clase = Number(numero_clase);
-			if (numero_clase == maximo2) {
-				$("#precargador").addClass("bg1"); 
-			}
-			else {
-				$("#precargador").addClass("bg" + (numero_clase + 1)); 	
-			}
-		}
-		
-	},"json");
-});
+
 </script>
 </body>
 
