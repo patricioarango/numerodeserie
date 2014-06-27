@@ -32,7 +32,7 @@ var googleapi = {
                 authWindow.close();
             }
 
-            if (code) {
+            if (code) { 
                 //Exchange the authorization code for an access token
                 $.post('https://accounts.google.com/o/oauth2/token', {
                     code: code[1],
@@ -61,7 +61,7 @@ function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w780"; // or w500 
     var query = "2";
-    $.post('test2.php',{ buscar: query }, function(data) { alert(data);
+    $.post('test2.php',{ buscar: query }, function(data) { 
         var maximo = Number(data["results"].length);
         for (var i=0; i<data["results"].length; i++) { 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
@@ -111,7 +111,7 @@ $(document).on('deviceready', function() {
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
             //scope: 'https://www.googleapis.com/auth/plus.login'
-            scope: 'https://www.googleapis.com/auth/plus.profile.email.read'
+            scope: 'https://www.googleapis.com/auth/plus.profile.emails.read'
         }).done(function(data) {
             $loginStatus.html('Access Token: ' + data.access_token);
             //ocultar boton
