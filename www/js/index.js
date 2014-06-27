@@ -58,6 +58,7 @@ var googleapi = {
 };
 
 $(document).on('deviceready', function() {
+    get_background();
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
 
