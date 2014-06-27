@@ -111,7 +111,7 @@ $(document).on('deviceready', function() {
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
             //scope: 'https://www.googleapis.com/auth/plus.login'
-            scope: 'https://www.googleapis.com/auth/plus.profile.emails.read'
+            scope: 'https://www.googleapis.com/auth/plus.profile.email.read'
         }).done(function(data) {
             $loginStatus.html('Access Token: ' + data.access_token);
             //ocultar boton
@@ -123,7 +123,12 @@ $(document).on('deviceready', function() {
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
            //gapi.client.load('plus','v1', loadProfile); 
            var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token;
-           window.location.href=url;
+           $.getJSON(url, function(data2){
+		        alert(data2);
+		        //id
+		        //link
+		        //picture
+		    });
            /*$.post(url, {}, function(data) {
                alert(data.name);
            },"json");*/
