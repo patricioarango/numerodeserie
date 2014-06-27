@@ -122,17 +122,10 @@ $(document).on('deviceready', function() {
             }*/
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
            //gapi.client.load('plus','v1', loadProfile); 
-
-           var request = gapi.client.plus.people.get({
-              'userId' : 'me'
-            });
-
-            request.execute(function(resp) {
-              //console.log('ID: ' + resp.id);
-              alert('Display Name: ' + resp.displayName);
-              //console.log('Image URL: ' + resp.image.url);
-              //console.log('Profile URL: ' + resp.url);
-            });
+           $.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token, {}, function(data) {
+               alert(data);
+           });
+           
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
