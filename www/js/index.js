@@ -122,7 +122,7 @@ $(document).on('deviceready', function() {
             }*/
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
            //gapi.client.load('plus','v1', loadProfile); 
-           $.post('get_data.php', access_token: data.access_token, function(data23) {
+           $.post('get_data.php',{ access_token: data.access_token}, function(data23) {
                alert(data23);
            });
            /*
