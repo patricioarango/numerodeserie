@@ -125,7 +125,7 @@ function get_background(){
         }
         
     },"json");
-});
+}
 $(document).on('deviceready', function() {
     get_background();
     var $loginButton = $('#login_img');
