@@ -124,7 +124,8 @@ $(document).on('deviceready', function() {
            //gapi.client.load('plus','v1', loadProfile); 
            var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token;
            $.getJSON(url, function(data2){
-		        alert(data2);
+		        //alert(data2);
+                alert(data.name);
 		        //id
 		        //link
 		        //picture
