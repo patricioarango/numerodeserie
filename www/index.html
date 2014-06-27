@@ -47,6 +47,9 @@ text-align: center;
 border: 1px solid #FFF;
 -webkit-border-radius: 3px; 
 }
+  html, body { margin: 0; padding: 0; }
+  .hide { display: none;}
+  .show { display: block;}
 </style>
 <script type="text/javascript">
   WebFontConfig = {
@@ -75,6 +78,28 @@ border: 1px solid #FFF;
     <div id="login"><a href="#" id="login_img"><img  width="100%" src="img/sign-in-button.png" /></a></div>
 	<div id="login_div"></div>
 	<div id="precargador" class="bg2" style="width:0px;height:0px;"></div>
+	<div id="signin-button" class="show">
+     <div class="g-signin"
+      data-callback="loginFinishedCallback"
+      data-approvalprompt="force"
+      data-clientid="841077041629.apps.googleusercontent.com"
+      data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
+      data-height="short"
+      data-cookiepolicy="single_host_origin"
+      >
+    </div>
+    <!-- In most cases, you don't want to use approvalprompt=force. Specified
+    here to facilitate the demo.-->
+  </div>
+
+  <div id="profile" class="hide">
+    <div>
+      <span id="pic"></span>
+      <span id="name"></span>
+    </div>
+
+    <div id="email"></div>
+  </div>
 	</section>
 	<footer>
 		
@@ -82,7 +107,7 @@ border: 1px solid #FFF;
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/index_2.js"></script>
 <script>
 
 </script>

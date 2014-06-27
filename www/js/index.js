@@ -56,38 +56,12 @@ var googleapi = {
         return deferred.promise();
     }
 };
-function loadProfile(){
-    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
-    request.execute(loadProfileCallback);
-  }
 
-  function loadProfileCallback(obj) {
-    profile = obj;
-
-    // Filter the emails object to find the user's primary account, which might
-    // not always be the first in the array. The filter() method supports IE9+.
-    email = obj['emails'].filter(function(v) {
-        return v.type === 'account'; // Filter out the primary email
-    })[0].value; // get the email from the filtered results, should always be defined.
-    displayProfile(profile);
-  }
-
-  /**
-   * Display the user's basic profile information from the profile object.
-   */
-  function displayProfile(profile){
-    alert(profile['displayName']);
-    alert(email);
-    //document.getElementById('name').innerHTML = profile['displayName'];
-    //document.getElementById('pic').innerHTML = '<img src="' + profile['image']['url'] + '" />';
-    //document.getElementById('email').innerHTML = email;
-    //toggleElement('profile');
-  }
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w780"; // or w500 
     var query = "2";
-    $.post('test2.php',{ buscar: query }, function(data) {
+    $.post('test2.php',{ buscar: query }, function(data) { alert(data);
         var maximo = Number(data["results"].length);
         for (var i=0; i<data["results"].length; i++) { 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
@@ -132,7 +106,6 @@ $(document).on('deviceready', function() {
     var $loginStatus = $('#login_div');
 
     $loginButton.on('click', function() {
-        alert();
         googleapi.authorize({
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
