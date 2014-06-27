@@ -120,25 +120,7 @@ $(document).on('deviceready', function() {
             $.post('get_data.php', { parametro: toka_toka}, function(data23) {
                 alert(data23);
             });
-           /*for (var i in data) {
-            out = "";
-            alert(data[i]);
-            }*/
-           //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
-           //gapi.client.load('plus','v1', loadProfile); 
-          
-           /*
-           var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token;
-           $.getJSON(url, function(data2){
-		        //alert(data2);
-                alert(data.name);
-		        //id
-		        //link
-		        //picture
-		    });*/
-           /*$.post(url, {}, function(data) {
-               alert(data.name);
-           },"json");*/
+           
            
         }).fail(function(data) {
             $loginStatus.html(data.error);
