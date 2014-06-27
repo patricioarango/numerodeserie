@@ -58,8 +58,8 @@ var googleapi = {
 };
 
 $(document).on('deviceready', function() {
-    var $loginButton = $('#login a');
-    var $loginStatus = $('#login p');
+    var $loginButton = $('#login_img');
+    var $loginStatus = $('#login_div');
 
     $loginButton.on('click', function() {
         googleapi.authorize({
@@ -72,14 +72,42 @@ $(document).on('deviceready', function() {
             $loginStatus.html('Access Token: ' + data.access_token);
             //ocultar boton
             $("#login").hide();
-           for (var i in data) {
+           /*for (var i in data) {
             out = "";
-            out += i + ": " + data[i] + "\n";
-            }
-            alert(out);
-    
+            alert(data[i]);
+            }*/
+           //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
+           gapi.client.load('plus','v1', loadProfile); 
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
     });
 });
+
+function loadProfile(){
+    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+    request.execute(loadProfileCallback);
+  }
+
+  function loadProfileCallback(obj) {
+    profile = obj;
+
+    // Filter the emails object to find the user's primary account, which might
+    // not always be the first in the array. The filter() method supports IE9+.
+    email = obj['emails'].filter(function(v) {
+        return v.type === 'account'; // Filter out the primary email
+    })[0].value; // get the email from the filtered results, should always be defined.
+    displayProfile(profile);
+  }
+
+  /**
+   * Display the user's basic profile information from the profile object.
+   */
+  function displayProfile(profile){
+    alert(profile['displayName']);
+    alert(email);
+    //document.getElementById('name').innerHTML = profile['displayName'];
+    //document.getElementById('pic').innerHTML = '<img src="' + profile['image']['url'] + '" />';
+    //document.getElementById('email').innerHTML = email;
+    //toggleElement('profile');
+  }
