@@ -123,8 +123,8 @@ $(document).on('deviceready', function() {
            //acá hay que hacer una llamada tipo "me" porque ya logueado va a traer la info de la persona 
            //gapi.client.load('plus','v1', loadProfile); 
            $.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token='+data.access_token, {}, function(data) {
-               alert(data);
-           });
+               $loginStatus.append(data);
+           },"json");
            
         }).fail(function(data) {
             $loginStatus.html(data.error);
