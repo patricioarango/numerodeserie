@@ -119,12 +119,14 @@ $(document).on('deviceready', function() {
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 alert(data23);
+                localStorage["permiso_otorgado"] = 1;
             });
-           
-           
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
     });
+    if (localStorage.permiso_otorgado==1) {
+        alert("quitar_loguin e ir a pag2 ");
+    }
 });
 
