@@ -61,7 +61,7 @@ function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w780/"; // or w500 
     var query = "2";
-    $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) { alert();
+    $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
         for (var i=0; i<data["results"].length; i++) { 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
