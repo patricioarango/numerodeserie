@@ -166,15 +166,14 @@ $(document).on('deviceready', function() {
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
     //creamos la db y las tablas
-    if (localStorage.permiso_otorgado==1) {
+    var permiso = window.localStorage.getItem("permiso_otorgado");
+    if (permiso==1) {
         alert("quitar_loguin e ir a pag2 ");
-        window.location.href = 'dashboard.html'
+        window.location.href = 'dashboard.html';
     }
     else {
         crearDB();
-    }
-
-    $loginButton.on('click', function() { 
+        $loginButton.on('click', function() { 
         googleapi.authorize({
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
@@ -188,13 +187,16 @@ $(document).on('deviceready', function() {
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 //alert(data23);
-                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email, data23.picture)
-                localStorage["permiso_otorgado"] = 1;
+                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email, data23.picture);
+                 window.localStorage.setItem("permiso_otorgado","1");
             });
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
     });
+    }
+
+    
     
 });
 
