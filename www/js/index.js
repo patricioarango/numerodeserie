@@ -77,14 +77,12 @@ function get_background(){
         $("#precargador").removeClass("bg2");
         $("#precargador").addClass(claserandom);
         //llamamos a la funcion que cambia el fondo cada 3s
-        setInterval(function(){cambiar_fondo(maximo)}, 5000);
+        setInterval(function(){cambiar_fondo(maximo)}, 6500);
         
         function cambiar_fondo(maximo) {
             var maximo2 = maximo;
             //sacamos al body la clase que tiene y le ponemos la del precargador
             $("body").switchClass($("body").attr('class'),$('#precargador').attr('class'),"easeOutBounce");
-            //$("body").removeClass($("body").attr('class'));
-            //$("body").addClass($('#precargador').attr('class')); 
             //clase nueva para el precargador
             var clase_nueva = $('#precargador').attr('class');
             $("#precargador").removeClass(clase_nueva);
@@ -100,10 +98,80 @@ function get_background(){
         
     },"json");
 }
+
+//funcion crear db y tablas
+function crearDB() { 
+    db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);
+    db.transaction(populateDB, errorCB, successCB);
+}
+function populateDB(tx) { 
+    //tx.executeSql("DROP TABLE IF EXISTS usuario");
+    //crear tablas
+var sql = 
+        "CREATE TABLE IF NOT EXISTS usuario ( "+
+        "id, " +
+        "firstName, " +
+        "lastName, " +
+        "email, " +
+        "image" + 
+        ")";
+alert(sql);
+    tx.executeSql(sql);
+
+ /*   var sql2 = 
+        "CREATE TABLE IF NOT EXISTS series ( "+
+        "id INTEGER UNIQUE KEY, " +
+        "first_air_date DATE, " +
+        "name VARCHAR(250), " +
+        "in_production VARCHAR(5), " +
+        "number_of_seasons INT(11), " +
+        "number_of_episodes INT(11), " +
+        ")";
+    tx.executeSql(sql2);
+    
+    //guardar temporadas y capitulos de cada una test_serie.php
+     var sql3 = 
+        "CREATE TABLE IF NOT EXISTS temporadasycapitulos_por_serie ( "+
+        "id INTEGER UNIQUE KEY, " +
+        "id_serie INT(11), " +
+        "temporada INT(11), " +
+        "capitulo INT(11), " +
+        ")";
+    tx.executeSql(sql3);
+
+    //crear tabla usuario_serie_temporada para guardar los valores del usuario
+   var sql4 = 
+        "CREATE TABLE IF NOT EXISTS temporadasycapitulos_de_usuario ( "+
+        "id INTEGER UNIQUE KEY, " +
+        "id_serie INT(11), " +
+        "temporada INT(11), " +
+        "capitulo INT(11), " +
+        ")";
+    tx.executeSql(sql4);
+    */
+}
+function errorCB(err) {
+        alert("Error processing SQL: "+err);
+}
+function successCB() {
+        alert("success!");
+}
+function insertar_usuario(tx,nombre,apellido,email,imagen) {
+    var sql="insert into usuario (id,firstName,lastName,email,image) values(1,'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";
+    tx.executeSql(sql);
+}
 $(document).on('deviceready', function() {
     get_background();
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
+    //creamos la db y las tablas
+    if (localStorage.permiso_otorgado==1) {
+        alert("quitar_loguin e ir a pag2 ");
+        window.location.href = 'dashboard.html'
+    }
+    else {
+        crearDB();
+    }
 
     $loginButton.on('click', function() { 
         googleapi.authorize({
@@ -119,14 +187,13 @@ $(document).on('deviceready', function() {
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 alert(data23);
+                //insertar_usuario(tx,data23.firstName,data23.lastName,email,image)
                 localStorage["permiso_otorgado"] = 1;
             });
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
     });
-    if (localStorage.permiso_otorgado==1) {
-        alert("quitar_loguin e ir a pag2 ");
-    }
+    
 });
 
