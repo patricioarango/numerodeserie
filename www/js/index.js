@@ -162,6 +162,7 @@ function insertar_usuario(tx,nombre,apellido,email,imagen) {
 }
 $(document).on('deviceready', function() {
     get_background();
+    localStorage["permiso_otorgado"] = 0; //BORRAR HARDCODE
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
     //creamos la db y las tablas
