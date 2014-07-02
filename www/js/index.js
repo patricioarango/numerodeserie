@@ -156,13 +156,13 @@ function errorCB(err) {
 function successCB() {
         alert("success!");
 }
-function insertar_usuario(tx,nombre,apellido,email,imagen) {
-    var sql="insert into usuario (id,firstName,lastName,email,image) values(1,'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";
+function insertar_usuario(tx,id,nombre,apellido,email,imagen) {
+    var sql="insert into usuario (id,firstName,lastName,email,image) values("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";
     tx.executeSql(sql);
 }
 $(document).on('deviceready', function() {
     get_background();
-    localStorage["permiso_otorgado"] = 0; //BORRAR HARDCODE
+    
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
     //creamos la db y las tablas
@@ -187,8 +187,8 @@ $(document).on('deviceready', function() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                alert(data23);
-                //insertar_usuario(tx,data23.firstName,data23.lastName,email,image)
+                //alert(data23);
+                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email, data23.picture)
                 localStorage["permiso_otorgado"] = 1;
             });
         }).fail(function(data) {
