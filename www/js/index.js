@@ -56,10 +56,9 @@ var googleapi = {
         return deferred.promise();
     }
 };
-
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "w780/"; // or w500 
+    var tamanio = "original/"; //"w780/"; // or w500 
     var query = "2";
     $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
@@ -176,10 +175,11 @@ function pedir_autenticacion() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                alert(data23);
+                //alert(data23);
+                alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 //insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","1");
-
+                 window.location.href = 'dashboard.html';
             });
         }).fail(function(data) {
             $loginStatus.html(data.error);
@@ -188,21 +188,15 @@ function pedir_autenticacion() {
 }
 $(document).on('deviceready', function() {
     get_background();
-    
-    
     //creamos la db y las tablas
-    var permiso = window.localStorage.getItem("permiso_otorgado");
-    alert(permiso);
+    //var permiso = window.localStorage.getItem("permiso_otorgado");
+    var permiso = 0;
     if (permiso=="1") {
-        alert("quitar_loguin e ir a pag2 ");
         window.location.href = 'dashboard.html';
     }
     else {
         crearDB();
         pedir_autenticacion();
     }
-
-    
-    
 });
 
