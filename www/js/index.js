@@ -58,7 +58,7 @@ var googleapi = {
 };
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "original/"; //"w780/"; // or w500 
+    var tamanio = "w780/"; //"original/"; //"w780/"; // or w500 
     var query = "2";
     $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
@@ -66,9 +66,15 @@ function get_background(){
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
             rule2 ="background-size: cover;";
             rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;}";
+            rule4 = "-webkit-background-size: cover;";
+            rule5 ="-moz-background-size: cover;";
+            rule6 ="-o-background-size: cover;";
                 $("style").append(rule1);
                 $("style").append(rule2);
                 $("style").append(rule3);
+                $("style").append(rule4);
+                $("style").append(rule5);
+                $("style").append(rule6);
         }
         //clase random para precargador
         var number = 1 + Math.floor(Math.random() * maximo);
