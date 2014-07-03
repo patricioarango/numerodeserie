@@ -114,7 +114,6 @@ var sql =
         "email, " +
         "image" + 
         ")";
-alert(sql);
     tx.executeSql(sql);
 
  /*   var sql2 = 
@@ -181,9 +180,10 @@ function pedir_autenticacion() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                //alert(data23);
-                alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
-                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
+                alert(data23);
+                alert(data23.given_name);
+                //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
+                //insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","1");
                  window.location.href = 'dashboard.html';
             });
