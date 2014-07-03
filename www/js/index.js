@@ -175,7 +175,7 @@ function pedir_autenticacion() {
             scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
             //scope: 'https://www.googleapis.com/auth/plus.profile.emails.read'
         }).done(function(data) {
-            $loginStatus.html('Access Token: ' + data.access_token);
+            //$loginStatus.html('Access Token: ' + data.access_token);
             var toka_toka=data.access_token;
             //ocultar boton
             $("#login").hide();
@@ -186,7 +186,7 @@ function pedir_autenticacion() {
                 //insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","1");
                  window.location.href = 'dashboard.html';
-            });
+            },"json");
         }).fail(function(data) {
             $loginStatus.html(data.error);
         });
