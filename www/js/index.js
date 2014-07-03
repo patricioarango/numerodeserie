@@ -65,10 +65,10 @@ function get_background(){
         for (var i=0; i<data["results"].length; i++) { 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
             rule2 ="background-size: cover;";
-            rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;}";
+            rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;";
             rule4 = "-webkit-background-size: cover;";
-            rule5 ="-moz-background-size: cover;";
-            rule6 ="-o-background-size: cover;";
+            rule5 = "-moz-background-size: cover;";
+            rule6 = "-o-background-size: cover; }";
                 $("style").append(rule1);
                 $("style").append(rule2);
                 $("style").append(rule3);
@@ -189,7 +189,7 @@ function pedir_autenticacion() {
                 //alert(data23);
                 //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
-                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
+                insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","1");
                  window.location.href = 'dashboard.html';
             },"json");
