@@ -106,7 +106,7 @@ function get_background(){
 
 //funcion crear db y tablas
 function crearDB() { 
-    db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);
+    var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);
     db.transaction(populateDB, errorCB, successCB);
 }
 function populateDB(tx) { 
@@ -162,10 +162,11 @@ function successCB() {
 }
 function insertar_usuario(id,nombre,apellido,email,imagen) {
 //openconection
-  db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
+  var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
   db.transaction(
   function(tx) {  
     var sql="insert into usuario (id,firstName,lastName,email,image) values ("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
+    alert(sql);
     tx.executeSql(sql);
   }, errorCB);
 }
