@@ -153,12 +153,18 @@ function errorCB(err) {
         alert("Error processing SQL: "+err);
 }
 function successCB() {
-        alert("success!");
+        //alert("success!");
 }
-function insertar_usuario(tx,id,nombre,apellido,email,imagen) {
-    var sql="insert into usuario (id,firstName,lastName,email,image) values("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";
+function insertar_usuario(id,nombre,apellido,email,imagen) {
+//openconection
+  db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
+  db.transaction(
+  function(tx) {  
+    var sql="insert into usuario (id,firstName,lastName,email,image) values ("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
     tx.executeSql(sql);
+  }, errorCB);
 }
+
 function pedir_autenticacion() {
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
@@ -177,7 +183,7 @@ function pedir_autenticacion() {
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 //alert(data23);
                 alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
-                //insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
+                insertar_usuario(tx,data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","1");
                  window.location.href = 'dashboard.html';
             });
