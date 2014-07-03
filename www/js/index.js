@@ -160,21 +160,10 @@ function insertar_usuario(tx,id,nombre,apellido,email,imagen) {
     var sql="insert into usuario (id,firstName,lastName,email,image) values("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";
     tx.executeSql(sql);
 }
-$(document).on('deviceready', function() {
-    get_background();
-    
+function pedir_autenticacion() {
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
-    //creamos la db y las tablas
-    var permiso = window.localStorage.getItem("permiso_otorgado");
-    alert(permiso);
-    if (permiso=="1") {
-        alert("quitar_loguin e ir a pag2 ");
-        window.location.href = 'dashboard.html';
-    }
-    else {
-        crearDB();
-        $loginButton.on('click', function() { 
+    $loginButton.on('click', function() { 
         googleapi.authorize({
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
@@ -196,6 +185,21 @@ $(document).on('deviceready', function() {
             $loginStatus.html(data.error);
         });
     });
+}
+$(document).on('deviceready', function() {
+    get_background();
+    
+    
+    //creamos la db y las tablas
+    var permiso = window.localStorage.getItem("permiso_otorgado");
+    alert(permiso);
+    if (permiso=="1") {
+        alert("quitar_loguin e ir a pag2 ");
+        window.location.href = 'dashboard.html';
+    }
+    else {
+        crearDB();
+        pedir_autenticacion();
     }
 
     
