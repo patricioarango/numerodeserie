@@ -165,7 +165,8 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
   var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
   db.transaction(
   function(tx) {  
-    var sql="insert into usuario (id,firstName,lastName,email,image) values ('"+id+"','"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
+    //var sql="insert into usuario (id,firstName,lastName,email,image) values ('"+id+"','"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
+    var sql = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','email@facek','imagen')";
     alert(sql);
     tx.executeSql(sql);
   }, errorCB);
@@ -191,7 +192,7 @@ function pedir_autenticacion() {
                 //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","4");
+                 window.localStorage.setItem("permiso_otorgado","5");
                  window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -204,7 +205,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="4") {
+    if (permiso=="5") {
         window.location.href = 'dashboard.html';
     }
     else {
