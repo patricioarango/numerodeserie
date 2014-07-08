@@ -181,7 +181,6 @@ function pedir_autenticacion() {
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
             scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
-            //scope: 'https://www.googleapis.com/auth/plus.profile.emails.read'
         }).done(function(data) {
             //$loginStatus.html('Access Token: ' + data.access_token);
             var toka_toka=data.access_token;
@@ -192,7 +191,7 @@ function pedir_autenticacion() {
                 //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","3");
+                 window.localStorage.setItem("permiso_otorgado","4");
                  window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -205,7 +204,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="3") {
+    if (permiso=="4") {
         window.location.href = 'dashboard.html';
     }
     else {
