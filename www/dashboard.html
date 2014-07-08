@@ -17,15 +17,34 @@ https://api.themoviedb.org/3/tv/I***D1434I***D?api_key=c4c226b09a5a1bb1875505ebc
 <style>
   html, body { margin: 0; padding: 0; }
 body {
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Arvo', serif;
 	color: white;
+	background: black;
 }
 .bg_prim {
-	background: url('img/the-sopranos-523679859129a.jpg') center center fixed;
-	background-size: cover;
-	background-repeat:no-repeat;
+	background:url('img/search_back2.png');
+	background-size: 100% auto;
+	background-repeat: no-repeat;
 }
-
+#buscador_contenedor {
+	margin-top: 10%;
+	width: 80%;
+	margin-left: 10%;
+}
+.searchBox{
+  background-image:url('img/lupa.png');
+  background-repeat:no-repeat;
+  background-position: right top;
+  right: 0px;
+  margin: 0px;
+  padding: 0px;
+  height: 60px;
+  border: 0px;
+  padding: 0px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Arvo', serif;
+}
 .flat {
 	display: inline-block;
 padding: 15px 0px;
@@ -41,11 +60,17 @@ border: 1px solid #FFF;
 #buscador {
 	width: 90%;
 	margin-left: 5%;
+	clar:both;
+}
+#resultados {
+	background-color: black;
+	margin-top: 18%;
+	
 }
 </style>
 <script type="text/javascript">
   WebFontConfig = {
-    google: { families: [ 'Montserrat::latin' ] }
+    google: { families: [ 'Arvo::latin' ] }
   };
   (function() {
     var wf = document.createElement('script');
@@ -65,9 +90,12 @@ border: 1px solid #FFF;
 	</header>
 	
 	<section>
-	<input type="text" id="buscador" name="buscador" value="" />
-
-	<div id="datos">
+	<div id="buscador_contenedor">
+		<div id="input_cont">
+			<input type="text" placeholder="search" id="buscador" name="buscador" class="searchBox" value="" />
+		</div>
+	</div>
+	<div id="resultados">
 		from de db. 
 	</div>
   <div id="precargador" class="bg2" style="width:0px;height:0px;"></div>
