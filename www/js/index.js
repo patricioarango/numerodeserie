@@ -110,7 +110,7 @@ function crearDB() {
     db.transaction(populateDB, errorCB, successCB);
 }
 function populateDB(tx) { 
-    //tx.executeSql("DROP TABLE IF EXISTS usuario");
+    tx.executeSql("DROP TABLE IF EXISTS usuario");
     //crear tablas
 var sql = 
         "CREATE TABLE IF NOT EXISTS usuario ( "+
@@ -192,7 +192,7 @@ function pedir_autenticacion() {
                 //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","5");
+                 window.localStorage.setItem("permiso_otorgado","7");
                  window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -205,7 +205,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="5") {
+    if (permiso=="7") {
         window.location.href = 'dashboard.html';
     }
     else {
