@@ -120,6 +120,7 @@ var sql =
         "email, " +
         "image" + 
         ")";
+alert(sql);
     tx.executeSql(sql);
 
  /*   var sql2 = 
@@ -158,7 +159,7 @@ function errorCB(err) {
         alert("Error processing SQL: "+err);
 }
 function successCB() {
-        //alert("success!");
+        alert("tabla creada");
 }
 function insertar_usuario(id,nombre,apellido,email,imagen) {
 //openconection
@@ -166,7 +167,7 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
   db.transaction(
   function(tx) {  
     //var sql="insert into usuario (id,firstName,lastName,email,image) values ('"+id+"','"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
-    var sql = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','email@facek','imagen')";
+    var sql = 'insert into usuario (id,firstName,lastName,email,image) values ("2","pato","arango","email@facek","imagen")';
     alert(sql);
     tx.executeSql(sql);
   }, errorCB);
