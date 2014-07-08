@@ -19,3 +19,4 @@ function querySuccess_u_g(tx, results) {
 $(document).on('deviceready', function() {
 	traer_usuario();
 }
+

@@ -165,13 +165,14 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
   var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
   db.transaction(
   function(tx) {  
-    var sql="insert into usuario (id,firstName,lastName,email,image) values ("+id+",'"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
+    var sql="insert into usuario (id,firstName,lastName,email,image) values ('"+id+"','"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
     alert(sql);
     tx.executeSql(sql);
   }, errorCB);
 }
 
 function pedir_autenticacion() {
+    $("#login").show();
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
     $loginButton.on('click', function() { 
