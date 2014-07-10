@@ -207,7 +207,7 @@ function pedir_autenticacion() {
                         alert("data is succesfully inserted");
                     }
                 //insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","9");
+                 window.localStorage.setItem("permiso_otorgado","10");
                  window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -220,7 +220,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="9") {
+    if (permiso=="10") {
         window.location.href = 'dashboard.html';
     }
     else {
