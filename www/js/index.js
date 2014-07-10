@@ -172,6 +172,18 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
   }, errorCB);
 }
 */
+function insertar_usuario(tx) {
+                        //var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')"; 
+                        var query = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"; 
+                        tx.executeSql(query);
+                }
+                 function error2(){
+                        alert("data is not inserted");
+                 }
+                 function success2(){
+                        alert("data is succesfully inserted");
+                    }
+                    
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
@@ -195,17 +207,7 @@ function pedir_autenticacion() {
                 var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
                 db.transaction(insertar_usuario, error, success);
                 
-                function insertar_usuario(tx) {
-                        //var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')"; 
-                        var query = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"; 
-                        tx.executeSql(query);
-                }
-                 function error(){
-                        alert("data is not inserted");
-                 }
-                 function success(){
-                        alert("data is succesfully inserted");
-                    }
+                
                 //insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
                  window.localStorage.setItem("permiso_otorgado","10");
                  window.location.href = 'dashboard.html';
