@@ -11,12 +11,12 @@ function queryDB_u_g(tx) {
 //Query success callback
 function querySuccess_u_g(tx, results) {
 	var len = results.rows.length;
-	for (var i=0; i<len; i++){
+	for (var i=0; i<=len; i++){
 	    alert(results.rows.item(i).id);
 	    alert(results.rows.item(i).firstName);
 	}
 }
-$(document).on('deviceready', function() {
-	traer_usuario();
-}
+$("#select_usuario").click(function() {
+   traer_usuario();
+});
 
