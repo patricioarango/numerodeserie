@@ -120,9 +120,7 @@ var sql =
         "email, " +
         "image" + 
         ")";
-alert(sql);
     tx.executeSql(sql);
-
  /*   var sql2 = 
         "CREATE TABLE IF NOT EXISTS series ( "+
         "id INTEGER UNIQUE KEY, " +
@@ -161,6 +159,7 @@ function errorCB(err) {
 function successCB() {
         alert("tabla creada");
 }
+/*
 function insertar_usuario(id,nombre,apellido,email,imagen) {
 //openconection
   var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
@@ -172,7 +171,7 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
     tx.executeSql(sql);
   }, errorCB);
 }
-
+*/
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
@@ -192,8 +191,22 @@ function pedir_autenticacion() {
                 //alert(data23);
                 //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
-                insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","7");
+                //insertamos el usuario en la db 
+                var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
+                db.transaction(insertar_usuario, error, success);
+                
+                function insertar_usuario(tx) {
+                        var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')";  
+                        tx.executeSql(query);
+                }
+                 function error(){
+                        alert("data is not inserted");
+                 }
+                 function success(){
+                        alert("data is succesfully inserted");
+                    }
+                //insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
+                 window.localStorage.setItem("permiso_otorgado","8");
                  window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -206,7 +219,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="7") {
+    if (permiso=="8") {
         window.location.href = 'dashboard.html';
     }
     else {

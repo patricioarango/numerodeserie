@@ -14,7 +14,7 @@ function querySuccess_u_g(tx, results) {
 	for (var i=0; i<len; i++){
 	    alert(results.rows.item(i).id);
 	    alert(results.rows.item(i).firstName);
-}
+	}
 }
 $(document).on('deviceready', function() {
 	traer_usuario();
