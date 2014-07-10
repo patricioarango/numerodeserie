@@ -197,7 +197,7 @@ function pedir_autenticacion() {
                 
                 function insertar_usuario(tx) {
                         //var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')"; 
-                        var query("insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"); 
+                        var query = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"; 
                         tx.executeSql(query);
                 }
                  function error(){
