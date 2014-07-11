@@ -171,7 +171,7 @@ function insertar_usuario(id,nombre,apellido,email,imagen) {
     tx.executeSql(sql);
   }, errorCB);
 }
-*/
+
 function insertar_usuario(tx) {
                         //var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')"; 
                         var query = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"; 
@@ -183,7 +183,7 @@ function insertar_usuario(tx) {
                  function success2(){
                         alert("data is succesfully inserted");
                     }
-                    
+  */                  
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
@@ -200,17 +200,15 @@ function pedir_autenticacion() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                //alert(data23);
-                //alert(data23.given_name);
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 //insertamos el usuario en la db 
-                var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
-                db.transaction(insertar_usuario, error, success);
-                
-                
-                //insertar_usuario(data23.id,data23.given_name,data23.family_name,data23.email,data23.picture);
-                 window.localStorage.setItem("permiso_otorgado","10");
-                 window.location.href = 'dashboard.html';
+                window.localStorage.setItem("usuario_id", data23.id);   
+                window.localStorage.setItem("usuario_nombre", data23.given_name );   
+                window.localStorage.setItem("usuario_apellido", data23.family_name);   
+                window.localStorage.setItem("usuario_email", data23.email);   
+                window.localStorage.setItem("usuario_imagen", data23.picture);   
+                window.localStorage.setItem("permiso_otorgado","11");
+                window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
             $loginStatus.html(data.error);
@@ -222,7 +220,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="10") {
+    if (permiso=="11") {
         window.location.href = 'dashboard.html';
     }
     else {

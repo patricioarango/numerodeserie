@@ -1,7 +1,7 @@
-//update images function
 function traer_usuario() {
-    var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);  
-    db.transaction(queryDB_u_g, errorCB);
+	$("#nombre").append(localStorage.usuario_nombre + " " + localStorage.usuario_apellido);
+	$("#email").append(localStorage.usuario_email);
+	$("#foto").append(localStorage.usuario_imagen);
 }
 //Query the database
 function queryDB_u_g(tx) {
@@ -16,7 +16,8 @@ function querySuccess_u_g(tx, results) {
 	    alert(results.rows.item(i).firstName);
 	}
 }
-$("#select_usuario").click(function() {
-   traer_usuario();
-});
+//update images function
+$(document).on('deviceready', function() {
+	traer_usuario();
+}
 
