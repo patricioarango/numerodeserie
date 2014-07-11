@@ -2,6 +2,7 @@ function traer_usuario() {
 	$("#nombre").append(localStorage.usuario_nombre + " " + localStorage.usuario_apellido);
 	$("#email").append(localStorage.usuario_email);
 	$("#foto").append(localStorage.usuario_imagen);
+	alert(localStorage.usuario_nombre);
 }
 //Query the database
 function queryDB_u_g(tx) {
