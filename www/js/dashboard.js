@@ -17,8 +17,9 @@ function querySuccess_u_g(tx, results) {
 	    alert(results.rows.item(i).firstName);
 	}
 }
-//update images function
+
+//init
 $(document).on('deviceready', function() {
-	traer_usuario();
-}
+		traer_usuario();
+});
 
