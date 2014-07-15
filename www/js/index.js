@@ -121,69 +121,44 @@ var sql =
         "image" + 
         ")";
     tx.executeSql(sql);
- /*   var sql2 = 
+  var sql2 = 
         "CREATE TABLE IF NOT EXISTS series ( "+
-        "id INTEGER UNIQUE KEY, " +
-        "first_air_date DATE, " +
-        "name VARCHAR(250), " +
-        "in_production VARCHAR(5), " +
-        "number_of_seasons INT(11), " +
-        "number_of_episodes INT(11), " +
+        "id, " +
+        "first_air_date, " +
+        "name, " +
+        "in_production, " +
+        "number_of_seasons, " +
+        "number_of_episodes, " +
         ")";
     tx.executeSql(sql2);
     
     //guardar temporadas y capitulos de cada una test_serie.php
      var sql3 = 
         "CREATE TABLE IF NOT EXISTS temporadasycapitulos_por_serie ( "+
-        "id INTEGER UNIQUE KEY, " +
-        "id_serie INT(11), " +
-        "temporada INT(11), " +
-        "capitulo INT(11), " +
+        "id , " +
+        "id_serie, " +
+        "temporada, " +
+        "capitulo, " +
         ")";
     tx.executeSql(sql3);
 
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
    var sql4 = 
         "CREATE TABLE IF NOT EXISTS temporadasycapitulos_de_usuario ( "+
-        "id INTEGER UNIQUE KEY, " +
-        "id_serie INT(11), " +
-        "temporada INT(11), " +
-        "capitulo INT(11), " +
+        "id, " +
+        "id_serie, " +
+        "temporada, " +
+        "capitulo, " +
         ")";
     tx.executeSql(sql4);
-    */
 }
 function errorCB(err) {
         alert("Error processing SQL: "+err);
 }
 function successCB() {
-        alert("tabla creada");
+        alert("tablas creadas");
 }
-/*
-function insertar_usuario(id,nombre,apellido,email,imagen) {
-//openconection
-  var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);     
-  db.transaction(
-  function(tx) {  
-    //var sql="insert into usuario (id,firstName,lastName,email,image) values ('"+id+"','"+nombre+"','"+apellido+"','"+email+"','"+imagen+"')";      
-    var sql = 'insert into usuario (id,firstName,lastName,email,image) values ("2","pato","arango","email@facek","imagen")';
-    alert(sql);
-    tx.executeSql(sql);
-  }, errorCB);
-}
-
-function insertar_usuario(tx) {
-                        //var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + data23.id + "','" + data23.given_name + "','" + data23.family_name + "','" + data23.email + "','" + data23.picture + "')"; 
-                        var query = "insert into usuario (id,firstName,lastName,email,image) values ('2','pato','arango','face@face','imagen')"; 
-                        tx.executeSql(query);
-                }
-                 function error2(){
-                        alert("data is not inserted");
-                 }
-                 function success2(){
-                        alert("data is succesfully inserted");
-                    }
-  */                  
+               
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
@@ -207,7 +182,7 @@ function pedir_autenticacion() {
                 window.localStorage.setItem("usuario_apellido", data23.family_name);   
                 window.localStorage.setItem("usuario_email", data23.email);   
                 window.localStorage.setItem("usuario_imagen", data23.picture);   
-                window.localStorage.setItem("permiso_otorgado","11");
+                window.localStorage.setItem("permiso_otorgado","12");
                 window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -220,7 +195,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="11") {
+    if (permiso=="12") {
         window.location.href = 'dashboard.html';
     }
     else {

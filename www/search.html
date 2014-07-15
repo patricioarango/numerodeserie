@@ -17,28 +17,29 @@ https://api.themoviedb.org/3/tv/I***D1434I***D?api_key=c4c226b09a5a1bb1875505ebc
   section {
   	 height: calc( 100% - 60px ); 
   }
-
+body {
+	background:url(img/search_back3.png); 
+	
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}
 header {
 	height: 60px;
 	width: 100%;
-	background-color: blue;
+	
+	background-image: url(img/blanco.png);
+	background-repeat: repeat-x;
 }  
 body {
 	font-family: 'Arvo', serif;
 	color: white;
-	background-color: #000000;
+	background-color: #ededed;
 }
 .bg_prim {
 	
 }
 #buscador_contenedor {
 	width: 100%;
-	background-color: #e0e0e0;
-	 background:url('img/search_back2.png'); 
-	
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	
 	height: 30%;
 }
 #input_cont {
@@ -78,7 +79,6 @@ border: 1px solid #FFF;
 }
 /* resultados */
 #resultados {
-	background-color: black;
 	margin-top: 6%;
 	width: 100%;
 	height: calc(100% - 8% - 30% ) - 60px;
@@ -88,13 +88,12 @@ border: 1px solid #FFF;
 	background: #ccc;
 	padding: 0px;
 	width: 100%;
-	
+	height: 132px; 
 	background-size: cover;
 }
 
 #resultados_contenedor {
 	width:80%;
-	background-color: #ffffff;
 	margin-left: 10%;
 }
 #results_bar {
@@ -126,7 +125,36 @@ border: 1px solid #FFF;
 }
 .varios_resultados {
 	height: 30px;
-	background-color: #fff;
+	background-color: #004d8c;
+	font-family: verdana, sans-serif;
+	font-size: 10px;
+}
+/* navegador*/
+#navegador {
+	list-style: none;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.nave { 
+	width: 12%;
+	height: 60px;
+	display: table-cell;
+	vertical-align: middle;
+	font-family: 'Arvo', serif;
+	color: #000000;
+}
+#no_results {
+	width: 70%;
+	margin-left: 15%;
+	margin-top: 20%;
+	font-family: verdana, sans-serif;
+	color: #000000;
+	font-size: 12px;
+}
+#no_results img {
+	float: left;
+	vertical-align:middle;
 }
 </style>
 <script type="text/javascript">
@@ -147,7 +175,16 @@ border: 1px solid #FFF;
 <body class="bg_prim">
 
 	<header>
-		
+		<ul id="navegador">
+			<li class="nave">Patricio!</li>
+			<li class="nave"></li>
+			<li class="nave"></li>
+			<li class="nave"><a href="dashboard.html"><img src="img/dashboard.png" height="30px" /></a></li>
+			<li class="nave"><a href="search.html"><img src="img/lupa_header.png" height="30px" /></a></li>
+			<li class="nave"></li>
+			<li class="nave"></li>
+			<li class="nave"><img src="img/scarlett.jpg" height="30px" /></li>
+		</ul>
 	</header>
 	
 	<section>
@@ -157,9 +194,14 @@ border: 1px solid #FFF;
 		</div>
 	</div>
 	<div id="resultados">
-	<div class="grid grid-pad">
+	<div class="grid grid-pad" id="resultados_varios_contenedor">
+	<div id="no_results">
+		hola mensaje
+	</div>
+	</div>
+	<!-- <div class="grid grid-pad" id="resultados_varios_contenedor">
 			<div class="col-1-2 mobile-col-1-2">
-				<div class="content" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
+				<div class="content" data-id="124" data-titulo="los soprano" data-temporadas="7" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
 					<div class="varios_resultados">
 						
 					</div>
@@ -167,7 +209,7 @@ border: 1px solid #FFF;
 			</div>
 			<div class="col-1-2 mobile-col-1-2">
 				<div class="content" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
-				d
+				
 				</div>
 			</div>
 			<div class="col-1-2 mobile-col-1-2">
@@ -180,8 +222,8 @@ border: 1px solid #FFF;
 				d
 				</div>
 			</div>		
-	</div><!-- grid pad -->
-	</div><!-- resultados -->
+	</div> 
+	</div> resultados -->
 		<!-- + 1 resultado overflow auto 
 				<div class="grid grid-pad">
 					<div class="col-1-2 mobile-col-1-2">
