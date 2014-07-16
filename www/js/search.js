@@ -22,7 +22,7 @@ function get_usuario() {
 function mySearch() {
    var buscador = escape($("#buscador").val());
    var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "w92/"; //'w92', 'w154', 'w185', 'w342', 'w500', 'original
+    var tamanio = "w342/"; //'w92', 'w154', 'w185', 'w342', 'w500', 'original
     $.post('http://autoplay.es/phonegap/seriesmarker_search.php', { query: buscador}, function(data) { console.log(data);
        $("#resultados_varios_contenedor").html(""); //borramos todo
             if (data["total_results"] > 1) { //si hay mas de 1 resultado armamos la lista
