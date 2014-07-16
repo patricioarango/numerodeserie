@@ -37,7 +37,7 @@ function mySearch() {
                    else { //poster default para los que no tienen
                          var poster = "img/series_sinposter2.png";
                    }
-                    $("#resultados_varios_contenedor").append("<div class='col-1-2 mobile-col-1-2'><div class='content' data-id='" + id_serie + "' data-titulo='" + titulo + "' data-temporadas='7' style='background-image: url(" + poster + ");'><div class='varios_resultados'>Breaking Bad</div></div>");
+                    $("#resultados_varios_contenedor").append("<div class='col-1-2 mobile-col-1-2'><div class='content' data-id='" + id_serie + "' data-titulo='" + titulo + "' data-temporadas='7' style='background-image: url(" + poster + ");'><div class='varios_resultados'><img src='img/add_prev_w.png' height='15px' /><span style='margin-left:5px;'>" + titulo + "</span></div><div class='varios_resultados'><img src='img/rating_w.png' height='15px' /><span style='margin-left:5px;'>" + rating + "</span></div></div>");
                 }  //for
                 // le damos altura a los divs
                 var alto_para_divs = ( ($(".content").width() * 1426) / 1000 );
