@@ -23,7 +23,8 @@ function mySearch() {
    var buscador = escape($("#buscador").val());
    var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w342/"; //'w92', 'w154', 'w185', 'w342', 'w500', 'original
-    $.post('http://autoplay.es/phonegap/seriesmarker_search.php', { query: buscador}, function(data) { console.log(data);
+    $.post('http://autoplay.es/phonegap/seriesmarker_search.php', { query: buscador}, function(data) { 
+      //console.log(data);
        $("#resultados_varios_contenedor").html(""); //borramos todo
             if (data["total_results"] > 1) { //si hay mas de 1 resultado armamos la lista
                 for (var i=0; i < data["results"].length; i++) { 
@@ -37,7 +38,7 @@ function mySearch() {
                    else { //poster default para los que no tienen
                          var poster = "img/series_sinposter2.png";
                    }
-                    $("#resultados_varios_contenedor").append("<div class='col-1-2 mobile-col-1-2'><div class='content' data-id='" + id_serie + "' data-titulo='" + titulo + "' data-temporadas='7' style='background-image: url(" + poster + ");'><div class='varios_resultados'><img src='img/add_prev_w.png' height='15px' /><span style='margin-left:5px;'>" + titulo + "</span></div><div class='varios_resultados'><img src='img/rating_w.png' height='15px' /><span style='margin-left:5px;'>" + rating + "</span></div></div>");
+                    $("#resultados_varios_contenedor").append("<div class='col-1-2 mobile-col-1-2'><div class='content' id='id_serie" + id_serie + "' data-id='" + id_serie + "' data-titulo='" + titulo + "' data-temporadas='7' data-added='0' data-poster='" + poster + "' style='background-image: url(" + poster + ");'><div class='varios_resultados'><span style='margin-left:5px;'>" + titulo + "</span></div><div class='varios_resultados' id='estado_added" + id_serie + "'><img src='img/add_prev_w.png' height='15px' /><span style='margin-left:5px;'>Add</span></div><div class='varios_resultados'><img src='img/rating_w.png' height='15px' /><span style='margin-left:5px;'>" + rating + "</span></div></div>");
                 }  //for
                 // le damos altura a los divs
                 var alto_para_divs = ( ($(".content").width() * 1426) / 1000 );
@@ -58,6 +59,23 @@ $("#buscador").keyup(function() {
     }
     timer = setTimeout(mySearch, 500);
 });
+
+$("#resultados").on('click',".content", function() {
+  if ($( this ).data('added') == 0) {
+    $("#estado_added" + $( this ).data('id')).html('');
+    $("#estado_added" + $( this ).data('id')).append("<img src='img/added_w.png' height='15px' /><span style='margin-left:5px;'>Added</span>");
+    $( this ).data('added', '1');
+  }
+  else if ($( this ).data('added') == 1) {
+    $("#estado_added" + $( this ).data('id')).html('');
+    $("#estado_added" + $( this ).data('id')).append("<img src='img/add_prev_w.png' height='15px' /><span style='margin-left:5px;'>Add</span>");
+    $( this ).data('added', '0');
+  }
+  console.log($( this ).data('id'));
+  console.log($( this ).data('titulo'));
+  console.log($( this ).data('poster'));
+});
+
 $(document).on('deviceready', function() {
     get_usuario();
 });

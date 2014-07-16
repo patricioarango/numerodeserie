@@ -103,62 +103,48 @@ function get_background(){
         
     },"json");
 }
+//variables globales de DDBB
+var db;
+var shortName = 'Seriesmarker';
+var version = '1.0';
+var displayName = 'Seriesmarker';
+var maxSize = 65535;
 
+//error o success
+function errorCB(err) {
+        console.log("Error processing SQL: " + err.message);
+}
+function successCB() {
+        console.log("tablas creadas");
+}
 //funcion crear db y tablas
 function crearDB() { 
-    var db = window.openDatabase("Seriesmarker", "1.0", "Seriesmarker", 100 * 1024);
+    db = window.openDatabase(shortName, version, displayName, maxSize);
     db.transaction(populateDB, errorCB, successCB);
 }
 function populateDB(tx) { 
     tx.executeSql("DROP TABLE IF EXISTS usuario");
-    //crear tablas
-var sql = 
-        "CREATE TABLE IF NOT EXISTS usuario ( "+
-        "id, " +
-        "firstName, " +
-        "lastName, " +
-        "email, " +
-        "image" + 
-        ")";
+    //tabla usuario
+    var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
     tx.executeSql(sql);
-  var sql2 = 
-        "CREATE TABLE IF NOT EXISTS series ( "+
-        "id, " +
-        "first_air_date, " +
-        "name, " +
-        "in_production, " +
-        "number_of_seasons, " +
-        "number_of_episodes, " +
-        ")";
+    //tabla series
+    var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER)";
     tx.executeSql(sql2);
-    
     //guardar temporadas y capitulos de cada una test_serie.php
-     var sql3 = 
-        "CREATE TABLE IF NOT EXISTS temporadasycapitulos_por_serie ( "+
-        "id , " +
-        "id_serie, " +
-        "temporada, " +
-        "capitulo, " +
-        ")";
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo INTEGER)";
     tx.executeSql(sql3);
-
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
-   var sql4 = 
-        "CREATE TABLE IF NOT EXISTS temporadasycapitulos_de_usuario ( "+
-        "id, " +
-        "id_serie, " +
-        "temporada, " +
-        "capitulo, " +
-        ")";
+    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,id_usuario INTEGER,temporada INTEGER, capitulo INTEGER)";
     tx.executeSql(sql4);
 }
-function errorCB(err) {
-        alert("Error processing SQL: "+err);
-}
-function successCB() {
-        alert("tablas creadas");
-}
-               
+//insertar usuario 
+function insertarUsuario() {
+db.transaction(function(transaction) {
+   transaction.executeSql('INSERT INTO User(firstName, lastName)
+VALUES (?,?)',['pato', 'arango'],
+     successCB,errorCB);
+   });
+}               
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
@@ -177,12 +163,13 @@ function pedir_autenticacion() {
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 //insertamos el usuario en la db 
+                insertarUsuario();
                 window.localStorage.setItem("usuario_id", data23.id);   
                 window.localStorage.setItem("usuario_nombre", data23.given_name );   
                 window.localStorage.setItem("usuario_apellido", data23.family_name);   
                 window.localStorage.setItem("usuario_email", data23.email);   
                 window.localStorage.setItem("usuario_imagen", data23.picture);   
-                window.localStorage.setItem("permiso_otorgado","12");
+                window.localStorage.setItem("permiso_otorgado","1");
                 window.location.href = 'dashboard.html';
             },"json");
         }).fail(function(data) {
@@ -195,7 +182,7 @@ $(document).on('deviceready', function() {
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
-    if (permiso=="12") {
+    if (permiso=="1") {
         window.location.href = 'dashboard.html';
     }
     else {

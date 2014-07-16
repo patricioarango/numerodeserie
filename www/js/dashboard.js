@@ -24,8 +24,8 @@ function insertar_usuario(tx) {
     var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + localStorage.usuario_id + "','" + localStorage.usuario_nombre + "','" + localStorage.usuario_apellido + "','" + localStorage.usuario_email + "','" + localStorage.usuario_imagen + "')";                     
     tx.executeSql(query);
 }
-function error2(){
-        alert("data is not inserted");
+function error2(err){
+        alert("data is not inserted" + err.message);
 }
 function success2(){
         alert("data is succesfully inserted");
