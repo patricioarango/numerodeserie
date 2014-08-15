@@ -26,14 +26,13 @@ body {
 header {
 	height: 60px;
 	width: 100%;
-	
 	background-image: url(img/blanco.png);
 	background-repeat: repeat-x;
 }  
 body {
 	font-family: 'Arvo', serif;
 	color: white;
-	background-color: #ededed;
+	background-color: #34495e;
 }
 .bg_prim {
 	
@@ -83,50 +82,29 @@ border: 1px solid #FFF;
 	width: 100%;
 	height: calc(100% - 8% - 30%)  - 60px;
 	height: calc(100% - 8% - 30%  - 60px);
+font-family: 'Arvo', serif;
+
 }
 .content {
 	background: #ccc;
 	padding: 0px;
 	width: 100%;
-	height: 132px; 
+	
 	background-size: cover;
 }
 
 #resultados_contenedor {
-	width:80%;
+	width: 80%;
 	margin-left: 10%;
 }
-#results_bar {
-	width: 17%;
-	float: right;
-	background-color: white;
+.resultado_unico {
+	background-size: cover;
 }
-#resultado_unico {
 
-}
-.rating {
-	margin-top: 80%;
-}
-.rating_text{
-	float: right;
-	margin-right: 30%;
-	font-size:14px;
-	color:black;
-	margin-top: -20px;
-}
-#series_list {
-	width: 100%;
-	margin:0px 10px 0px -3px;
-	padding-left: 0px;
-	color: black;
-	list-style: none;
-	font-size: 24px;
-	font-family: 'Arvo', serif;
-}
 .varios_resultados {
 	height: 30px;
-	font-family: 'Montserrat', serif;
-	font-size: 12px;
+	font-family: 'Arvo', sans-serif;
+	font-size: 13px;
 	background-image: url(img/negro.png);
 	background-repeat: repeat-x;
 }
@@ -134,17 +112,22 @@ border: 1px solid #FFF;
 	margin-left: 5px;
 	
 }
-#no_results {
-	width: 70%;
-	margin-left: 15%;
-	margin-top: 20%;
-	font-family: 'Montserrat', sans-serif;
-	color: #000000;
-	font-size: 12px;
+.varios_resultados2 {
+	height: 35px;
+	font-family: 'Arvo', sans-serif;
+	font-size: 14px;
+	background-image: url(img/negro.png);
+	background-repeat: repeat-x repeat-y;
 }
-#no_results img {
-	float: left;
-	vertical-align:middle;
+.varios_resultados2 img {
+	margin-left: 5px;
+}
+#no_results {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 10%;
+	color: white;
+	font-family: 'Lato', sans-serif;
 }
 /* navegador*/
 #navegador {
@@ -154,12 +137,13 @@ border: 1px solid #FFF;
 	margin: 0px;
 }
 .nave { 
-	width: 12%;
+	width: 24%;
 	height: 60px;
-	display: table-cell;
+	display: inline-block;
 	vertical-align: middle;
 	font-family: 'Arvo', serif;
 	color: #000000;
+	padding-top: calc (60px * 0.5);
 }
 
 </style>
@@ -189,6 +173,19 @@ border: 1px solid #FFF;
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(wf, s);
   })(); </script>
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,900:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
 </head>
 
 <body class="bg_prim">
@@ -196,12 +193,8 @@ border: 1px solid #FFF;
 	<header>
 		<ul id="navegador">
 			<li class="nave">Patricio!</li>
-			<li class="nave"></li>
-			<li class="nave"></li>
 			<li class="nave"><a href="dashboard.html"><img src="img/dashboard.png" height="30px" /></a></li>
 			<li class="nave"><a href="search.html"><img src="img/lupa_header.png" height="30px" /></a></li>
-			<li class="nave"></li>
-			<li class="nave"></li>
 			<li class="nave"><img src="img/scarlett.jpg" height="30px" /></li>
 		</ul>
 	</header>
@@ -215,7 +208,7 @@ border: 1px solid #FFF;
 	<div id="resultados">
 	<div class="grid grid-pad" id="resultados_varios_contenedor">
 	<div id="no_results">
-		hola mensaje
+		<img style="vertical-align: middle;opacity: 0.7;float:left;" src="img/lupa_header.png" width="100px" /> <span style="font-weight:700;">Find your loved show.</span> <span style="font-weight:300;">Add it and go dashboard to start.</span>
 	</div>
 	</div>
 	<!-- <div class="grid grid-pad" id="resultados_varios_contenedor">

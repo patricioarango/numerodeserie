@@ -123,18 +123,17 @@ function crearDB() {
     db.transaction(populateDB, errorCB, successCB);
 }
 function populateDB(tx) { 
-    tx.executeSql("DROP TABLE IF EXISTS usuario");
     //tabla usuario
     var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
     tx.executeSql(sql);
     //tabla series
-    var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER)";
+    var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, id_serie INTEGER,name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER, poster TEXT)";
     tx.executeSql(sql2);
     //guardar temporadas y capitulos de cada una test_serie.php
-     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo INTEGER)";
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER)";
     tx.executeSql(sql3);
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
-    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,id_usuario INTEGER,temporada INTEGER, capitulo INTEGER)";
+    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
     tx.executeSql(sql4);
 }
 //insertar usuario 
@@ -164,7 +163,7 @@ function pedir_autenticacion() {
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
                 //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 //insertamos el usuario en la db 
-                meter_usuario();
+                //meter_usuario();
                 window.localStorage.setItem("usuario_id", data23.id);   
                 window.localStorage.setItem("usuario_nombre", data23.given_name );   
                 window.localStorage.setItem("usuario_apellido", data23.family_name);   
