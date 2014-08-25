@@ -14,6 +14,24 @@ function successHandler(){
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
 }
+function crear_array_series(){
+  ids_de_series = [];
+  db = window.openDatabase(shortName, version, displayName, maxSize);
+  db.transaction(function(transaction) {
+    transaction.executeSql('SELECT series.name as se_name,usuario_se.modificado, usuario_se.id_serie as serie_id FROM usuario_se INNER JOIN series ON usuario_se.id_serie=series.id_serie ORDER BY 2 DESC', [],
+      function(transaction, result) {
+          if (result != null && result.rows != null) {
+            var row = result.rows.item;
+            //ids_de_series = new Array();
+              for (var i = 0; i < result.rows.length; i++) {
+                var row = result.rows.item(i);
+                ids_de_series.push(row.serie_id); //array global para mostrar ocultar series
+            } // for
+          }
+      },errorHandler);
+  },errorHandler,nullHandler);
+}
+
   // A-z order by 1 asc last modifi 2 DESC
 function traer_datos() {
 	db = window.openDatabase(shortName, version, displayName, maxSize);
@@ -28,17 +46,19 @@ function traer_datos() {
             var ancho_serie = ( alto_serie * 1000 ) / 1426; 
             var margin_serie = ( ( $( window ).width() - ancho_serie) / 2 );
             var mostrar_o_no;
-            ids_de_series = new Array();
+            //ids_de_series = new Array();
           		for (var i = 0; i < result.rows.length; i++) {
           			var row = result.rows.item(i);
-                ids_de_series.push(row.serie_id); //array global para mostrar ocultar series
+                //ids_de_series.push(row.serie_id); //array global para mostrar ocultar series
               if (i == 0) { // solo el primero visible
                 mostrar_o_no = "";
+                orden = 0;
               }
               else {
                 mostrar_o_no = "style='display:none;'";
+                orden= 1;
               } 
-              $("section").append("<div class='series_one' " + mostrar_o_no + " id='contenedor_serie" + row.serie_id + "' data-id='" + row.serie_id + "' data-orden='" + i + "'><div class='order_by'><img style='float: left;' src='img/setts.png' height='50px' /><div  class='texto23'>Order by: <img src='img/chequed.png' height='20px' style='vertical-align:text-bottom;' /> last edited  <img src='img/unchecked.png' height='20px' style='vertical-align:text-bottom;' />  A-z <!-- <span style='color:#3498db;'>&#8212;</span> Show finished? <img src='img/fini_unchecked.png' height='20px' style='vertical-align:text-bottom;' /> <img src='img/fini_checked.png' height='20px' style='vertical-align:text-bottom;' /> --></div></div><div class='show_finished'><a href='#' class='anterior_se' data-orden='" + i + "' data-id='" + row.serie_id + "' id='anterior_" + row.serie_id + "'><img style='float: left;' src='img/prev2.png' height='40px' /></a><a href='#' class='siguiente_se' data-orden='" + i + "' data-id='" + row.serie_id + "' id='siguiente_" + row.serie_id + "'><img style='float: right;' src='img/next.png' height='40px' /></a><div class='texto23'>" + row.se_name + " (" + row.nof + " Seasons, "+ row.noe +" Episodes)</div></div><div class='last_viewed' id='last_viewed_id" + row.serie_id + "'><a href='#' class='epi_menos' id='datos_cap_menos" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: left;' src='img/menos.png' height='40px' /></a><a href='#' class='epi_mas' id='datos_cap_mas" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: right;' src='img/mas.png' height='40px' /></a><div class='texto23' id='datos_del_capitulo" + row.serie_id + "'>" + row.cap_na + " S" + row.cap_temp + " E" + row.cap_nu + " </div></div><div class='img_serie_conte' style='margin-left:" + margin_serie + "px;'><img class='img_series' src='" + row.poster + "' width='" + ancho_serie + "' height='" + alto_serie + "' /></div></div>");
+              $("section").append("<div class='series_one' " + mostrar_o_no + " id='contenedor_serie" + row.serie_id + "' data-id='" + row.serie_id + "' data-orden='" + orden +"'><div class='order_by'><img style='float: left;' src='img/setts.png' height='50px' /><div  class='texto23'>Order by: <img src='img/chequed.png' height='20px' style='vertical-align:text-bottom;' /> last edited  <img src='img/unchecked.png' height='20px' style='vertical-align:text-bottom;' />  A-z <!-- <span style='color:#3498db;'>&#8212;</span> Show finished? <img src='img/fini_unchecked.png' height='20px' style='vertical-align:text-bottom;' /> <img src='img/fini_checked.png' height='20px' style='vertical-align:text-bottom;' /> --></div></div><div class='show_finished'><a href='#' class='anterior_se' data-orden_bot='0' data-id='" + row.serie_id + "' id='anterior_" + row.serie_id + "'><img style='float: left;' src='img/prev2.png' height='40px' /></a><a href='#' class='siguiente_se' data-orden_bot='0' data-id='" + row.serie_id + "' id='siguiente_" + row.serie_id + "'><img style='float: right;' src='img/next.png' height='40px' /></a><div class='texto23'>" + row.se_name + " (" + row.nof + " Seasons, "+ row.noe +" Episodes)</div></div><div class='last_viewed' id='last_viewed_id" + row.serie_id + "'><a href='#' class='epi_menos' id='datos_cap_menos" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: left;' src='img/menos.png' height='40px' /></a><a href='#' class='epi_mas' id='datos_cap_mas" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: right;' src='img/mas.png' height='40px' /></a><div class='texto23' id='datos_del_capitulo" + row.serie_id + "'>" + row.cap_na + " S" + row.cap_temp + " E" + row.cap_nu + " </div></div><div class='img_serie_conte' style='margin-left:" + margin_serie + "px;'><img class='img_series' src='" + row.poster + "' width='" + ancho_serie + "' height='" + alto_serie + "' /></div></div>");
         		} // for
       		}
      	},errorHandler);
@@ -48,24 +68,25 @@ function traer_datos() {
 $("section").on('click',".siguiente_se",function(e) {
    e.preventDefault();
    var nuevo_orden;
-   var orden = $(this).data("orden");
-   var id_actual = $(this).data("id");
-   if (ids_de_series.length == (orden + 1)) {
+   var orden = $(this).data("orden_bot");
+   if ( ids_de_series.length == (orden + 1)) {
     nuevo_orden = 0;
    }
    else {
-    nuevo_orden = (orden + 1);
+    nuevo_orden = orden + 1;
    }
    $(".series_one").hide();
-   $("#contenedor_serie" + ids_de_series[nuevo_orden]).show();
-   //console.log(ids_de_series.length);
+   $("#contenedor_serie" + ids_de_series[nuevo_orden]).show(); 
+   $("#siguiente_" + ids_de_series[nuevo_orden]).data("orden_bot", nuevo_orden);
+   $("#anterior_" + ids_de_series[nuevo_orden]).data("orden_bot", nuevo_orden);
+
+   console.log(orden);
 });
 //mostrar anterior serie
 $("section").on('click',".anterior_se",function(e) {
    e.preventDefault();
    var nuevo_orden;
-   var orden = $(this).data("orden");
-   var id_actual = $(this).data("id");
+   var orden = $(this).data("orden_bot");
    if (orden == 0) {
     nuevo_orden = (ids_de_series.length - 1);
    }
@@ -74,6 +95,8 @@ $("section").on('click',".anterior_se",function(e) {
    }
    $(".series_one").hide();
    $("#contenedor_serie" + ids_de_series[nuevo_orden]).show();
+   $("#siguiente_" + ids_de_series[nuevo_orden]).data("orden_bot", nuevo_orden);
+   $("#anterior_" + ids_de_series[nuevo_orden]).data("orden_bot", nuevo_orden);
 });
 //traer capitulo siguiente
 function traer_siguiente_capitulo(id_serie,temporada,capitulo, id_capitulo_siguiente_callback){
@@ -178,6 +201,7 @@ function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_nam
 $(document).on('deviceready', function() {
 	checkConnection();
   traer_datos();
+  crear_array_series();
 });
 
 function checkConnection() {

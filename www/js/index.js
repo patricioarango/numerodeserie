@@ -179,6 +179,7 @@ function pedir_autenticacion() {
 }
 $(document).on('deviceready', function() {
     get_background();
+    crearDB();
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
     //var permiso = 0;
@@ -186,7 +187,7 @@ $(document).on('deviceready', function() {
         window.location.href = 'dashboard.html';
     }
     else {
-        crearDB();
+        
         pedir_autenticacion();
     }
 });
