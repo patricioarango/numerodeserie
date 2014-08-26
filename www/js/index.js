@@ -63,6 +63,7 @@ function get_background(){
     $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
         for (var i=0; i<data["results"].length; i++) { 
+            if (data["results"][i].poster_path != null) { //solo para imagenes not null 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
             rule2 ="background-size: cover;";
             rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;";
@@ -75,6 +76,7 @@ function get_background(){
                 $("style").append(rule4);
                 $("style").append(rule5);
                 $("style").append(rule6);
+            }
         }
         //clase random para precargador
         var number = 1 + Math.floor(Math.random() * maximo);
@@ -178,7 +180,9 @@ function pedir_autenticacion() {
         });
     });
 }
-$(document).on('deviceready', function() {
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
     get_background();
     crearDB();
     //creamos la db y las tablas
@@ -191,5 +195,6 @@ $(document).on('deviceready', function() {
         
         pedir_autenticacion();
     }
-});
+}
+
 

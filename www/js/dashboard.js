@@ -198,11 +198,13 @@ function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_nam
   });
 } 
 //init
-$(document).on('deviceready', function() {
-	checkConnection();
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  checkConnection();
   traer_datos();
   crear_array_series();
-});
+}
 
 function checkConnection() {
         var networkState = navigator.network.connection.type;
