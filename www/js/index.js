@@ -130,7 +130,7 @@ function populateDB(tx) {
     var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, id_serie INTEGER,name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER, poster TEXT)";
     tx.executeSql(sql2);
     //guardar temporadas y capitulos de cada una test_serie.php
-     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER)";
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
     tx.executeSql(sql3);
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
     var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
@@ -154,6 +154,7 @@ function pedir_autenticacion() {
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
             redirect_uri: 'http://localhost',
+            //redirect_uri: 'http://localhost/numerodeserie/www/',
             scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
         }).done(function(data) {
             //$loginStatus.html('Access Token: ' + data.access_token);
