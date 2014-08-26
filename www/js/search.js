@@ -25,7 +25,7 @@ function traer_datos() {
             var row = result.rows.item
               for (var i = 0; i < result.rows.length; i++) {
                 var row = result.rows.item(i);
-                //console.log(row.id_serie);
+                console.log("numero de serie. series en la db" + row.id_serie);
                 resultados_db.push(row.id_serie);
             }
           }
@@ -152,6 +152,7 @@ $("#resultados").on('click',".content", function() {
     $("#estado_added" + $( this ).data('id')).html('');
     $("#estado_added" + $( this ).data('id')).append("<img src='img/added_w.png' height='15px' /><span style='margin-left:5px;'>Added</span>");
     $( this ).data('added', '1');
+    alert("procesar serie" + $( this ).data('id'));
    AddValueToDB($( this ).data('id'), $( this ).data('titulo'));
    procesarSerie($( this ).data('id'));
   }
