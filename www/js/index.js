@@ -117,9 +117,11 @@ function get_background(){
 //error o success
 function errorCB(err) {
         console.log("Error processing SQL: " + err.message);
+        alert("Error processing SQL: " + err.message);
 }
 function successCB() {
         console.log("tablas creadas");
+       alert("tablas creadas");
 }
 //funcion crear db y tablas
 function crearDB() { 
