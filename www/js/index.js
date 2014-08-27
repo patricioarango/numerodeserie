@@ -196,7 +196,7 @@ function pedir_autenticacion() {
         });
     });
 }
-document.addEventListener("deviceready", onDeviceReady, false);
+
 
 function onDeviceReady() {
     get_background();
@@ -213,4 +213,4 @@ function onDeviceReady() {
     }
 }
 
-
+document.addEventListener("deviceready", onDeviceReady, false);

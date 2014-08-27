@@ -196,8 +196,7 @@ function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_nam
     tx.executeSql('UPDATE usuario_se set temporada=?,capitulo_num=?,capitulo_name=?,id_capitulo=?,modificado=DateTime("now") WHERE id_serie=?', [temporada,capitulo_num,capitulo_name,id_capitulo,id_serie], nullHandler("update ultimo epi"), errorHandler); 
   });
 } 
-//init
-document.addEventListener("deviceready", onDeviceReady, false);
+
 
 function onDeviceReady() {
   alert("deviceready");
@@ -221,4 +220,5 @@ function checkConnection() {
         states[Connection.NONE]     = 'No network connection';
     }
 
-    
+  //init
+document.addEventListener("deviceready", onDeviceReady, false);  
