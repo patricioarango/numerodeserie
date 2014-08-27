@@ -198,14 +198,8 @@ function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_nam
 } 
 
 
-function onDeviceReady() {
-  alert("deviceready");
-  checkConnection();
-  traer_datos();
-  crear_array_series();
-}
-
 function checkConnection() {
+  alert("checkConnection");
         var networkState = navigator.network.connection.type;
         if(networkState == "none") { 
           window.location.href="no_internet.html?location=dashboard";
@@ -218,7 +212,13 @@ function checkConnection() {
         states[Connection.CELL_3G]  = 'Cell 3G connection';
         states[Connection.CELL_4G]  = 'Cell 4G connection';
         states[Connection.NONE]     = 'No network connection';
-    }
+}
 
+function onDeviceReady() {
+  alert("deviceready");
+  checkConnection();
+  traer_datos();
+  crear_array_series();
+}
   //init
 document.addEventListener("deviceready", onDeviceReady, false);  
