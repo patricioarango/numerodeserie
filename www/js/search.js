@@ -12,7 +12,7 @@ function nullHandler(testo){
 
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
-   alert('OKA: ' + error);
+   alert('OKA: ' + error.message + ' code: ' + error.code);
 }
 //traemos los datos de la db para comparar con results de busqueda
 var resultados_db = [];

@@ -5,12 +5,8 @@ var version = '1.0';
 var displayName = 'Seriesmarker';
 var maxSize = 65535;
 
-function nullHandler(){
-alert();
-}
-
-function successHandler(){
-  console.log("oka");
+function nullHandler(testo){
+alert(testo);
 }
 
 function errorHandler(tx,error) {
@@ -31,8 +27,8 @@ function crear_array_series(){
                 ids_de_series.push(row.serie_id); //array global para mostrar ocultar series
             } // for
           }
-      },errorHandler);
-  },errorHandler,nullHandler);
+      },nullHandler("select series de db"),errorHandler);
+  },nullHandler("select series de db"),errorHandler);
 }
 
   // A-z order by 1 asc last modifi 2 DESC
@@ -64,8 +60,8 @@ function traer_datos() {
               $("section").append("<div class='series_one' " + mostrar_o_no + " id='contenedor_serie" + row.serie_id + "' data-id='" + row.serie_id + "' data-orden='" + orden +"'><div class='order_by'><img style='float: left;' src='img/setts.png' height='50px' /><div  class='texto23'>Order by: <img src='img/chequed.png' height='20px' style='vertical-align:text-bottom;' /> last edited  <img src='img/unchecked.png' height='20px' style='vertical-align:text-bottom;' />  A-z <!-- <span style='color:#3498db;'>&#8212;</span> Show finished? <img src='img/fini_unchecked.png' height='20px' style='vertical-align:text-bottom;' /> <img src='img/fini_checked.png' height='20px' style='vertical-align:text-bottom;' /> --></div></div><div class='show_finished'><a href='#' class='anterior_se' data-orden_bot='0' data-id='" + row.serie_id + "' id='anterior_" + row.serie_id + "'><img style='float: left;' src='img/prev2.png' height='40px' /></a><a href='#' class='siguiente_se' data-orden_bot='0' data-id='" + row.serie_id + "' id='siguiente_" + row.serie_id + "'><img style='float: right;' src='img/next.png' height='40px' /></a><div class='texto23'>" + row.se_name + " (" + row.nof + " Seasons, "+ row.noe +" Episodes)</div></div><div class='last_viewed' id='last_viewed_id" + row.serie_id + "'><a href='#' class='epi_menos' id='datos_cap_menos" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: left;' src='img/menos.png' height='40px' /></a><a href='#' class='epi_mas' id='datos_cap_mas" + row.serie_id + "' data-temp_actual='" + row.cap_temp + "' data-cap_actual='" + row.cap_nu + "' data-serieid='" + row.serie_id + "' data-ultima_temporada='" + row.ultima_temporada + "' data-max_cap='" + row.ultimo_capitulo_temporada + "'><img style='float: right;' src='img/mas.png' height='40px' /></a><div class='texto23' id='datos_del_capitulo" + row.serie_id + "'>" + row.cap_na + " S" + row.cap_temp + " E" + row.cap_nu + " </div></div><div class='img_serie_conte' style='margin-left:" + margin_serie + "px;'><img class='img_series' src='" + row.poster + "' width='" + ancho_serie + "' height='" + alto_serie + "' /></div></div>");
         		} // for
       		}
-     	},errorHandler);
- 	},errorHandler,nullHandler);
+     	},nullHandler("select todo from db"),errorHandler);
+ 	},nullHandler("select todo from db"),errorHandler);
 }
 //mostrar siguiente serie
 $("section").on('click',".siguiente_se",function(e) {
@@ -113,8 +109,8 @@ function traer_siguiente_capitulo(id_serie,temporada,capitulo, id_capitulo_sigui
             id_capitulo_siguiente_callback(row);
             return;
           }
-      },errorHandler);
-  },errorHandler,nullHandler);
+      },nullHandler("select siguiente / anterior cap"),errorHandler);
+  },nullHandler("select siguiente / anterior cap"),errorHandler);
 }
 //mostrar capitulo anterior
 $("section").on('click',".epi_menos",function(e) {
@@ -197,7 +193,7 @@ $("section").on('click',".epi_mas",function(e) {
 function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_name,id_capitulo) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('UPDATE usuario_se set temporada=?,capitulo_num=?,capitulo_name=?,id_capitulo=?,modificado=DateTime("now") WHERE id_serie=?', [temporada,capitulo_num,capitulo_name,id_capitulo,id_serie], nullHandler, errorHandler); 
+    tx.executeSql('UPDATE usuario_se set temporada=?,capitulo_num=?,capitulo_name=?,id_capitulo=?,modificado=DateTime("now") WHERE id_serie=?', [temporada,capitulo_num,capitulo_name,id_capitulo,id_serie], nullHandler("update ultimo epi"), errorHandler); 
   });
 } 
 //init
