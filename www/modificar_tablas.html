@@ -36,7 +36,9 @@
 	</header>
 	
 	<section>
-			<button id="modificar_tabla">modificar tabla</button>
+      <button id="borrar">borrar db</button>
+      <button id="crear">crear tablas</button>
+			<button id="insert">insert tabla</button>
 	</section>
 	<footer>
 	</footer>
@@ -64,21 +66,10 @@ function errorHandler(tx,error) {
 }
 function crearDB() { 
     var db = window.openDatabase(shortName, version, displayName, maxSize);
-    db.transaction(populateDB, nullHandler("crear"), errorHandler);
+    db.transaction(creacionDB, nullHandler("crear"), errorHandler);
 }
-function populateDB(tx) { 
-    //tabla usuario
-   //var sql = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
-   //var sql = "ALTER TABLE series_se ADD temp_max INTEGER";
-/*var sql = "DROP TABLE series";
-    tx.executeSql(sql);
-var sql2 = "DROP TABLE series_se";
-    tx.executeSql(sql2);
-    var sql3 = "DROP TABLE usuario";
-    tx.executeSql(sql3); 
-    var sql4 = "DROP TABLE usuario_se";
-    tx.executeSql(sql4);*/
- var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
+function creacionDB(tx) { 
+  var sql = "CREATE TABLE IF NOT EXISTS usuario (id unique,firstName,lastName,email,image)";
     tx.executeSql(sql);
     //tabla series
     var sql2 = "CREATE TABLE IF NOT EXISTS series (id unique, id_serie,name,in_production,number_of_seasons, number_of_episodes,poster)";
@@ -90,9 +81,48 @@ var sql2 = "DROP TABLE series_se";
     var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,temporada,capitulo_num,capitulo_name,modificado)";
     tx.executeSql(sql4);
   }
-$("#modificar_tabla").click(function() {
-	crearDB();
-
+function borrarDB() { 
+    var db = window.openDatabase(shortName, version, displayName, maxSize);
+    db.transaction(borracionDB, nullHandler("crear"), errorHandler);
+}
+function borracionDB(tx) { 
+var sql = "DROP TABLE series";
+    tx.executeSql(sql);
+var sql2 = "DROP TABLE series_se";
+    tx.executeSql(sql2);
+    var sql3 = "DROP TABLE usuario";
+    tx.executeSql(sql3); 
+    var sql4 = "DROP TABLE usuario_se";
+    tx.executeSql(sql4);
+ 
+  }
+function insertDB() { 
+    var db = window.openDatabase(shortName, version, displayName, maxSize);
+    db.transaction(insertarDB, nullHandler("crear"), errorHandler);
+}
+function insertarDB(tx) { 
+var sql = "INSERT INTO series (id_serie,name,in_production,number_of_seasons, number_of_episodes,poster) values('1398','breaking mal','true','5','864','img/sopranos.jpg')";
+    tx.executeSql(sql);
+var sql2 = "INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name, temp_max,temp_max_cap) values ('1398','1','1','pilot','8','13')";
+    tx.executeSql(sql2);
+    var sql2 = "INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name, temp_max,temp_max_cap) values ('1398','1','2','pilot2','8','13')";
+    tx.executeSql(sql2);
+    var sql2 = "INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name, temp_max,temp_max_cap) values ('1398','1','3','pilot3','8','13')";
+    tx.executeSql(sql2);
+    var sql3 = "INSERT INTO  usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values('1398','1','1','piloto',DateTime('now'))";
+    tx.executeSql(sql3); 
+    var sql4 = "INSERT INTO usuario (firstName,lastName,email,image) values('Patricio','Arango','parango@tvemar.com','img/scarlett.jpg')";
+    tx.executeSql(sql4);
+ 
+  }
+$("#borrar").click(function() {
+  borrarDB();
+});
+$("#crear").click(function() {
+  crearDB();
+});
+$("#insert").click(function() {
+	insertDB();
 });
 
 </script>
