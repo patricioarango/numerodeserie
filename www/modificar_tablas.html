@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Your Website</title>
+
+<style>
+
+</style>
+
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Arvo::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+</head>
+<body>
+
+	<header>
+		<ul id="navegador">
+			<li class="nave">Patricio!</li>
+			<li class="nave"><a href="dashboard.html"><img src="img/dashboard2.png" height="30px" /></a></li>
+			<li class="nave"><a href="search.html"><img src="img/lupa_header.png" height="30px" /></a></li>
+			<li class="nave"><img src="img/scarlett.jpg" height="30px" /></li>
+		</ul>
+	</header>
+	
+	<section>
+			<button id="modificar_tabla">modificar tabla</button>
+	</section>
+	<footer>
+	</footer>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
+       
+<script>
+
+var db;
+var shortName = 'Seriesmarker';
+var version = '1.0';
+var displayName = 'Seriesmarker';
+var maxSize = 65535;
+function nullHandler(){};
+
+function successHandler(){
+  console.log("oka");
+};
+
+function errorHandler(tx,error) {
+   console.log('OKA: ' + error.message + ' code: ' + error.code);
+}
+function crearDB() { 
+    var db = window.openDatabase(shortName, version, displayName, maxSize);
+    db.transaction(populateDB, nullHandler, nullHandler);
+}
+function populateDB(tx) { 
+    //tabla usuario
+   //var sql = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
+   //var sql = "ALTER TABLE series_se ADD temp_max INTEGER";
+var sql = "DROP TABLE series";
+    tx.executeSql(sql);
+var sql2 = "DROP TABLE series_se";
+    tx.executeSql(sql2);
+    var sql3 = "DROP TABLE usuario";
+    tx.executeSql(sql3); 
+    var sql4 = "DROP TABLE usuario_se";
+    tx.executeSql(sql4);
+
+  }
+$("#modificar_tabla").click(function() {
+	crearDB();
+
+});
+
+</script>
+</body>
+</html>
