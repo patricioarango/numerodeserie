@@ -5,14 +5,19 @@ var version = '1.0';
 var displayName = 'Seriesmarker';
 var maxSize = 65535;
 
-function nullHandler(){};
+function nullHandler(testo){
+  console.log("numero de serie . nullhandler" + testo);
+  alert("numero de serie . nullhandler" + testo);
+}
 
 function successHandler(){
   console.log("oka");
-};
+  alert("successHandler");
+}
 
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
+   alert('OKA: ' + error.message + ' code: ' + error.code);
 }
 //traemos los datos de la db para comparar con results de busqueda
 var resultados_db = [];
@@ -38,46 +43,46 @@ function AddValueToDB(id_serie,series_name) {
   var query="INSERT INTO series(id_serie, name) VALUES ('" + id_serie + "','" + series_name + "')";
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-  tx.executeSql(query,nullHandler,errorHandler);
+  tx.executeSql(query,nullHandler("series"),errorHandler);
   });
 }
 //UPDATE serie de la DB
 function UpdateValueFromDB(id_serie,in_production, number_of_episodes,number_of_seasons,poster) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler, errorHandler); 
+    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler("updateserie"), errorHandler); 
   });
 } 
 //borrar serie de la DB     
 function DeleteValueFromDB(id_serie) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM series WHERE series.id_serie=?', [id_serie], nullHandler, errorHandler); 
+    tx.executeSql('DELETE FROM series WHERE series.id_serie=?', [id_serie], nullHandler("borrar serie"), errorHandler); 
   });
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM series_se WHERE series_se.id_serie=?', [id_serie], nullHandler, errorHandler); 
+    tx.executeSql('DELETE FROM series_se WHERE series_se.id_serie=?', [id_serie], nullHandler("borrar series_se"), errorHandler); 
   });
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM usuario_se WHERE usuario_se.id_serie=?', [id_serie], nullHandler, errorHandler); 
+    tx.executeSql('DELETE FROM usuario_se WHERE usuario_se.id_serie=?', [id_serie], nullHandler("borrar usuario_se"), errorHandler); 
   });
 }
 function insertSE(id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler, errorHandler); 
+    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler("insert_se"), errorHandler); 
   });
 }
 function insertUserSE(id_serie,temporada,capitulo_num,capitulo_name) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) { 
-    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler, errorHandler); 
+    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler("insert user_se"), errorHandler); 
   });
 }
 //ADD capitulos por temporada por serie
 function insertar_SE(id_serie,temporada,capitulo) {
     db = window.openDatabase(shortName, version, displayName, maxSize);
     db.transaction(function(tx) {
-        tx.executeSql('INSERT INTO series_se (id_serie, temporada,capitulo) VALUES (?,?,?)', [id_serie,temporada,capitulo], nullHandler, errorHandler); 
+        tx.executeSql('INSERT INTO series_se (id_serie, temporada,capitulo) VALUES (?,?,?)', [id_serie,temporada,capitulo], nullHandler("insert series_se"), errorHandler); 
     });
 }
 //buscador
@@ -152,7 +157,6 @@ $("#resultados").on('click',".content", function() {
     $("#estado_added" + $( this ).data('id')).html('');
     $("#estado_added" + $( this ).data('id')).append("<img src='img/added_w.png' height='15px' /><span style='margin-left:5px;'>Added</span>");
     $( this ).data('added', '1');
-    alert("procesar serie" + $( this ).data('id'));
    AddValueToDB($( this ).data('id'), $( this ).data('titulo'));
    procesarSerie($( this ).data('id'));
   }
@@ -201,7 +205,7 @@ function procesarSerie(id_serie){
                       var cantidad_de_temporadas = json.number_of_seasons;
                       for (var i=1; i<=json.number_of_seasons; i++) { 
                           var url2 = 'https://api.themoviedb.org/3/tv/' + id_serie + '/season/' + i + '?api_key=c4c226b09a5a1bb1875505ebcdafaeea';
-                          console.log(url2);
+                          console.log("numero de serie . url para los epis de cada temporada " + url2);
                           $.ajax({
                               type: 'GET',
                               url: url2,
@@ -220,13 +224,13 @@ function procesarSerie(id_serie){
                                 }   
                               },
                               error: function(e) {
-                                  console.log(e.message);
+                                  console.log("error" + e.message);
                               }
                           }); //second ajax call
                       }//for 
             },
             error: function(e) {
-                console.log(e.message);
+                console.log("error" + e.message);
             }
         });
 }
