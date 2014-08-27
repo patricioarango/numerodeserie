@@ -129,6 +129,18 @@ function crearDB() {
     db.transaction(populateDB, errorCB, successCB);
 }
 function populateDB(tx) { 
+      //tabla usuario
+  var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
+    tx.executeSql(sql);
+    //tabla series
+    var sql2 = "CREATE TABLE IF NOT EXISTS series (id unique, id_serie,name,in_production,number_of_seasons, number_of_episodes,poster)";
+    tx.executeSql(sql2);
+    //guardar temporadas y capitulos de cada una test_serie.php
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id unique,id_serie,temporada,capitulo_num,capitulo_name, capitulo_orden,temp_max,temp_max_cap)";
+    tx.executeSql(sql3);
+    //crear tabla usuario_serie_temporada para guardar los valores del usuario
+    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,temporada,capitulo_num,capitulo_name,modificado)";
+/*
     //tabla usuario
     var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
     tx.executeSql(sql);
@@ -140,7 +152,7 @@ function populateDB(tx) {
     tx.executeSql(sql3);
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
     var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
-    tx.executeSql(sql4);
+    tx.executeSql(sql4); */
 }
 //insertar usuario 
 function meter_usuario() {
