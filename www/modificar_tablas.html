@@ -41,7 +41,7 @@
 	<footer>
 	</footer>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
        
 <script>
@@ -51,7 +51,9 @@ var shortName = 'Seriesmarker';
 var version = '1.0';
 var displayName = 'Seriesmarker';
 var maxSize = 65535;
-function nullHandler(){};
+function nullHandler(testo){
+  alert(testo);
+};
 
 function successHandler(){
   console.log("oka");
@@ -62,21 +64,31 @@ function errorHandler(tx,error) {
 }
 function crearDB() { 
     var db = window.openDatabase(shortName, version, displayName, maxSize);
-    db.transaction(populateDB, nullHandler, nullHandler);
+    db.transaction(populateDB, nullHandler("crear"), errorHandler);
 }
 function populateDB(tx) { 
     //tabla usuario
    //var sql = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
    //var sql = "ALTER TABLE series_se ADD temp_max INTEGER";
-var sql = "DROP TABLE series";
+/*var sql = "DROP TABLE series";
     tx.executeSql(sql);
 var sql2 = "DROP TABLE series_se";
     tx.executeSql(sql2);
     var sql3 = "DROP TABLE usuario";
     tx.executeSql(sql3); 
     var sql4 = "DROP TABLE usuario_se";
+    tx.executeSql(sql4);*/
+ var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
+    tx.executeSql(sql);
+    //tabla series
+    var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, id_serie INTEGER,name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER, poster TEXT)";
+    tx.executeSql(sql2);
+    //guardar temporadas y capitulos de cada una test_serie.php
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
+    tx.executeSql(sql3);
+    //crear tabla usuario_serie_temporada para guardar los valores del usuario
+    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
     tx.executeSql(sql4);
-
   }
 $("#modificar_tabla").click(function() {
 	crearDB();

@@ -5,14 +5,17 @@ var version = '1.0';
 var displayName = 'Seriesmarker';
 var maxSize = 65535;
 
-function nullHandler(){};
+function nullHandler(){
+alert();
+}
 
 function successHandler(){
   console.log("oka");
-};
+}
 
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
+   alert('OKA: ' + error.message + ' code: ' + error.code);
 }
 function crear_array_series(){
   ids_de_series = [];

@@ -6,18 +6,13 @@ var displayName = 'Seriesmarker';
 var maxSize = 65535;
 
 function nullHandler(testo){
-  console.log("numero de serie . nullhandler" + testo);
-  alert("numero de serie . nullhandler" + testo);
-}
-
-function successHandler(){
-  console.log("oka");
-  alert("successHandler");
+  console.log("numero de serie . accion: " + testo);
+  alert("numero de serie . accion: " + testo);
 }
 
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
-   alert('OKA: ' + error.message + ' code: ' + error.code);
+   alert('OKA: ' + error);
 }
 //traemos los datos de la db para comparar con results de busqueda
 var resultados_db = [];
@@ -34,8 +29,8 @@ function traer_datos() {
                 resultados_db.push(row.id_serie);
             }
           }
-      },errorHandler);
-  },errorHandler,nullHandler);
+      },nullHandler("select series from db"),errorHandler);
+  },nullHandler("select series from db"),errorHandler);
 }
 
 //ADD serie de la DB
@@ -43,14 +38,14 @@ function AddValueToDB(id_serie,series_name) {
   var query="INSERT INTO series(id_serie, name) VALUES ('" + id_serie + "','" + series_name + "')";
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-  tx.executeSql(query,nullHandler("series"),errorHandler);
+  tx.executeSql(query,nullHandler("insert into series"),errorHandler);
   });
 }
 //UPDATE serie de la DB
 function UpdateValueFromDB(id_serie,in_production, number_of_episodes,number_of_seasons,poster) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler("updateserie"), errorHandler); 
+    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler("update series"), errorHandler); 
   });
 } 
 //borrar serie de la DB     
@@ -69,13 +64,13 @@ function DeleteValueFromDB(id_serie) {
 function insertSE(id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler("insert_se"), errorHandler); 
+    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler("insert into series_se"), errorHandler); 
   });
 }
 function insertUserSE(id_serie,temporada,capitulo_num,capitulo_name) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) { 
-    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler("insert user_se"), errorHandler); 
+    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler("insert into usuario_se"), errorHandler); 
   });
 }
 //ADD capitulos por temporada por serie

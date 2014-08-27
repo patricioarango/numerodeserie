@@ -1,3 +1,10 @@
+//variables globales de DDBB
+var db;
+var shortName = 'Seriesmarker';
+var version = '1.0';
+var displayName = 'Seriesmarker';
+var maxSize = 65535;
+
 var googleapi = {
     authorize: function(options) {
         var deferred = $.Deferred();
@@ -105,12 +112,7 @@ function get_background(){
         
     },"json");
 }
-//variables globales de DDBB
-var db;
-var shortName = 'Seriesmarker';
-var version = '1.0';
-var displayName = 'Seriesmarker';
-var maxSize = 65535;
+
 
 //error o success
 function errorCB(err) {
