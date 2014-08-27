@@ -233,6 +233,7 @@ function procesarSerie(id_serie){
  document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
+        alert("deviceready");
         checkConnection();
         traer_datos();
     }

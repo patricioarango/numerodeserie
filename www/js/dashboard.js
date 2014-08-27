@@ -200,6 +200,7 @@ function update_capitulo_usuario_se(id_serie,temporada,capitulo_num,capitulo_nam
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+  alert("deviceready");
   checkConnection();
   traer_datos();
   crear_array_series();
