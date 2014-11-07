@@ -7,12 +7,10 @@ var maxSize = 65535;
 
 function nullHandler(testo){
   console.log("numero de serie . accion: " + testo);
-  alert("numero de serie . accion: " + testo);
 }
 
 function errorHandler(tx,error) {
    console.log('OKA: ' + error.message + ' code: ' + error.code);
-   alert('OKA: ' + error.message + ' code: ' + error.code);
 }
 //traemos los datos de la db para comparar con results de busqueda
 var resultados_db = [];
@@ -229,9 +227,9 @@ function procesarSerie(id_serie){
             }
         });
 }
- 
- document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);
 
-     function onDeviceReady() {
-        traer_datos();
-    }
+function onDeviceReady() {
+  traer_datos();
+}
+
