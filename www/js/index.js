@@ -117,11 +117,11 @@ function get_background(){
 //error o success
 function errorCB(err) {
         console.log("Error processing SQL: " + err.message);
-        alert("Error processing SQL: " + err.message);
+//        alert("Error processing SQL: " + err.message);
 }
 function successCB() {
         console.log("tablas creadas");
-       alert("tablas creadas");
+//       alert("tablas creadas");
 }
 //funcion crear db y tablas
 function crearDB() { 
@@ -180,7 +180,6 @@ function pedir_autenticacion() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                //alert("id: "+ data23.id + "nom: " + data23.given_name + "ape: " + data23.family_name + "email: " + data23.email + "foto: " + data23.picture);
                 //insertamos el usuario en la db 
                 //meter_usuario();
                 window.localStorage.setItem("usuario_id", data23.id);   
@@ -203,7 +202,7 @@ function onDeviceReady() {
     crearDB();
     //creamos la db y las tablas
     var permiso = window.localStorage.getItem("permiso_otorgado");
-    //var permiso = 0;
+    var permiso = 2;
     if (permiso=="2") {
         window.location.href = 'dashboard.html';
     }
