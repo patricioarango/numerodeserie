@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<!--
+//buscar serie x ID
+https://api.themoviedb.org/3/tv/I***D1434I***D?api_key=c4c226b09a5a1bb1875505ebcdafaeea
+
+// number_of_seasons trae la cantidad de temporadas
+-->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Your Website</title>
+
+<style>
+  html, body { margin: 0; padding: 0; }
+body {
+	font-family: 'Arvo', serif;
+	color: black;
+	background: #34495e;
+}
+
+.flat {
+	display: inline-block;
+padding: 15px 0px;
+width: 245px;
+color: #FFF;
+font-size: 16px;
+text-transform: uppercase;
+letter-spacing: 1px;
+text-align: center;
+border: 1px solid #FFF;
+-webkit-border-radius: 3px;
+}
+
+/* navegador*/
+header {
+	height: 50px;
+	width: 100%;
+	background-color: #9b59b6;
+	background-color: #ecf0f1;
+	border-bottom: 5px solid #8e44ad;
+}
+#navegador {
+	list-style: none;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.nave {
+	width: 24%;
+	display: inline-block;
+	vertical-align: middle;
+	font-family: 'Arvo', serif;
+	color: #000000;
+	padding-top: 5px;
+	text-align: center;export140521001034690983
+}
+.order_by {
+	height: 50px;
+	background-color: #3498db;
+	border-bottom: 5px solid #2980b9;
+	color: white;
+}
+.show_finished {
+	height: 50px;
+	background-color: #1abc9c;
+	border-bottom: 5px solid #16a085;
+	color: white;
+}
+.last_viewed {
+	height: 50px;
+	background-color: #e74c3c;
+	border-bottom: 5px solid #c0392b;
+	color: white;
+
+}
+.texto23 {
+	padding-top: 15px;
+	text-align: center;
+}
+.last_viewed img {
+	margin-top: 5px;
+}
+.img_serie_conte {
+	margin-left: 25%;
+}
+
+</style>
+
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Arvo::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+</head>
+<body>
+
+	<header>
+		<ul id="navegador">
+			<li class="nave">Patricio!</li>
+			<li class="nave"><a href="dashboard.html"><img src="img/dashboard2.png" height="30px" /></a></li>
+			<li class="nave"><a href="search.html"><img src="img/lupa_header.png" height="30px" /></a></li>
+			<li class="nave"><img src="img/scarlett.jpg" height="30px" /></li>
+		</ul>
+	</header>
+
+	<section>
+			<div class="series_one">
+	<div class="order_by">
+		<img style="float: left;" src="img/setts.png" height="50px" />
+		<div  class="texto23">Order by: <img src="img/chequed.png" height="20px" style="vertical-align:text-bottom;" /> last edited  <img src="img/unchecked.png" height="20px" style="vertical-align:text-bottom;" />  A-z <!-- <span style="color:#3498db;">&#8212;</span> Show finished? <img src="img/fini_unchecked.png" height="20px" style="vertical-align:text-bottom;" /> <img src="img/fini_checked.png" height="20px" style="vertical-align:text-bottom;" /> -->
+		</div>
+	</div>
+	<div class="show_finished">
+		<img style="float: left;" src="img/prev2.png" height="40px" />
+		<img style="float: right;" src="img/next.png" height="40px" />
+			<div class="texto23">Breaking Bad 8 Seasons 64 Episodes</div>
+	</div>
+	<div class="last_viewed">
+		<img style="float: left;" src="img/menos.png" height="40px" />
+		<img style="float: right;" src="img/mas.png" height="40px" />
+			<div class="texto23">Pilot S1 E2 </div>
+	</div>
+	<div class="img_serie_conte">
+			<img class="img_series" src="img/the-sopranos-523679859129a.jpg" width="0" height="0px" />
+	</div>
+	</div>
+	</section>
+	<footer>
+	</footer>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
+         <script type="text/javascript" src="js/dashboard.js"></script>
+<script>
+$(function(){
+	/*
+	$(".img_series").height(alto_serie);
+	$(".img_series").width(ancho_serie);
+	$(".img_serie_conte").css("margin-left",margin_serie);
+	*/
+});
+</script>
+</body>
+</html>

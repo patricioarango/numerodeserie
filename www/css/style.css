@@ -10,12 +10,15 @@ nav {
     color: #fff;
     text-align: center;
 }
+.texto_black {
+    color: #000;
+}
 .vcenter {
      display: flex;
      align-items: center;
     font-weight: bold;
 }
-nav a { color: #fff !important; }
+nav a, .last_viewed a, .show_finished a { color: #fff !important; }
 
 #nav_border {
     padding: 5px 0px;
@@ -36,14 +39,26 @@ section {
     background-color: #3498db;
     border-bottom: 5px solid #2980b9;
 }
-.show_finished {
-    padding: 20px 0px;
+.show_finished{
+    padding-top: 20px;
+    padding-bottom: 10px;
 	background-color: #1abc9c;
 	border-bottom: 5px solid #16a085;
 
 }
 .last_viewed {
-	padding: 20px 0px;
+	padding-top: 20px;
+    padding-bottom: 7px;
 	background-color: #e74c3c;
 	border-bottom: 5px solid #c0392b;
+}
+#lista_nav {
+    color: black;
+    font-size: 16px;
+}
+#lista_nav li {
+    width: 120%;
+}
+.dropdown-menu{
+
 }
