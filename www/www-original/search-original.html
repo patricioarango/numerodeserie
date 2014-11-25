@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<!--
+//buscar serie x ID
+https://api.themoviedb.org/3/tv/I***D1434I***D?api_key=c4c226b09a5a1bb1875505ebcdafaeea
+
+// number_of_seasons trae la cantidad de temporadas
+-->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Your Website</title>
+	<link rel="stylesheet" type="text/css" href="css/simplegrid.css" />
+<style>
+  html, body { margin: 0; padding: 0; height: 100%;
+  	}
+  section {
+  	 height: calc( 100% - 60px );
+  }
+body {
+	background:url(img/search_back3.png);
+
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}
+header {
+	height: 60px;
+	width: 100%;
+	background-image: url(img/blanco.png);
+	background-repeat: repeat-x;
+}
+body {
+	font-family: 'Arvo', serif;
+	color: white;
+	background-color: #34495e;
+}
+.bg_prim {
+
+}
+#buscador_contenedor {
+	width: 100%;
+	height: 30%;
+}
+#input_cont {
+	width: 80%;
+	margin-top: 10%;
+	margin-left: 10%;
+	height: 60px;
+	float: left;
+}
+.searchBox{
+  background-image:url('img/lupa.png');
+  background-repeat:no-repeat;
+  background-position: right top;
+  right: 0px;
+  margin: 0px;
+  padding: 0px;
+  height: 60px;
+  border: 0px;
+  padding: 0px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Arvo', serif;
+  width: 100%;
+}
+
+.flat {
+	display: inline-block;
+padding: 15px 0px;
+width: 245px;
+color: #FFF;
+font-size: 16px;
+text-transform: uppercase;
+letter-spacing: 1px;
+text-align: center;
+border: 1px solid #FFF;
+-webkit-border-radius: 3px;
+}
+/* resultados */
+#resultados {
+	margin-top: 30%;
+	width: 100%;
+	height: calc(100% - 8% - 30%)  - 60px;
+	height: calc(100% - 8% - 30%  - 60px);
+font-family: 'Arvo', serif;
+
+}
+.content {
+	background: #ccc;
+	padding: 0px;
+	width: 100%;
+
+	background-size: cover;
+}
+
+#resultados_contenedor {
+	width: 80%;
+	margin-left: 10%;
+}
+.resultado_unico {
+	background-size: cover;
+}
+
+.varios_resultados {
+	height: 30px;
+	font-family: 'Arvo', sans-serif;
+	font-size: 13px;
+	background-image: url(img/negro.png);
+	background-repeat: repeat-x;
+}
+.varios_resultados img {
+	margin-left: 5px;
+
+}
+.varios_resultados2 {
+	height: 35px;
+	font-family: 'Arvo', sans-serif;
+	font-size: 14px;
+	background-image: url(img/negro.png);
+	background-repeat: repeat-x repeat-y;
+}
+.varios_resultados2 img {
+	margin-left: 5px;
+}
+#no_results {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 10%;
+	color: white;
+	font-family: 'Lato', sans-serif;
+}
+/* navegador*/
+#navegador {
+	list-style: none;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.nave {
+	width: 24%;
+	height: 60px;
+	display: inline-block;
+	vertical-align: middle;
+	font-family: 'Arvo', serif;
+	color: #000000;
+	padding-top: calc (60px * 0.5);
+}
+
+</style>
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Arvo::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googlewidth="80%"apiswidth="80%".com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Montserrat::latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,900:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+</head>
+
+<body class="bg_prim">
+
+	<header>
+		<ul id="navegador">
+			<li class="nave"><a href="modificar_tablas.html">Patricio!</a></li>
+			<li class="nave"><a href="dashboard.html"><img src="img/dashboard.png" height="30px" /></a></li>
+			<li class="nave"><a href="search.html"><img src="img/lupa_header.png" height="30px" /></a></li>
+			<li class="nave"><img src="img/scarlett.jpg" height="30px" /></li>
+		</ul>
+	</header>
+
+	<section>
+	<div id="buscador_contenedor">
+		<div id="input_cont">
+			<input type="text" placeholder="search" id="buscador" name="buscador" class="searchBox" value="" />
+		</div>
+	</div>
+	<div id="resultados">
+	<div class="grid grid-pad" id="resultados_varios_contenedor">
+	<div id="no_results">
+		<img style="vertical-align: middle;opacity: 0.7;float:left;" src="img/lupa_header.png" width="100px" /> <span style="font-weight:700;">Find your loved show.</span> <span style="font-weight:300;">Add it and go dashboard to start.</span>
+	</div>
+	</div>
+	<!-- <div class="grid grid-pad" id="resultados_varios_contenedor">
+			<div class="col-1-2 mobile-col-1-2">
+				<div class="content" data-id="124" data-titulo="los soprano" data-temporadas="7" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
+					<div class="varios_resultados">
+
+					</div>
+				</div>
+			</div>
+			<div class="col-1-2 mobile-col-1-2">
+				<div class="content" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
+
+				</div>
+			</div>
+			<div class="col-1-2 mobile-col-1-2">
+				<div class="content" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
+				d
+				</div>
+			</div>
+			<div class="col-1-2 mobile-col-1-2">
+				<div class="content" style="background-image: url(img/the-sopranos-523679859129a.jpg);">
+				d
+				</div>
+			</div>
+	</div>
+	</div> resultados -->
+		<!-- + 1 resultado overflow auto
+				<div class="grid grid-pad">
+					<div class="col-1-2 mobile-col-1-2">
+						<div class="content">
+						</div>
+					</div>
+					<div class="col-1-2 mobile-col-1-2">
+						<div class="content">
+						</div>
+					</div>
+				</div>
+		-->
+
+
+  <div id="precargador" class="bg2" style="width:0px;height:0px;"></div>
+	</section>
+	<footer>
+
+	</footer>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
+
+         <script type="text/javascript" src="js/search.js"></script>
+<script>
+$(function(){
+	$(".content").height( (($(window).height() - 60 ) * 0.50) );
+	$("#resultado_unico img").height( (($(window).height() - 60 ) * 0.65) );
+	var ancho = $("#resultado_unico").width();
+	$("#resultado_unico").css("margin-left",(ancho / 4.5) + "px" );
+});
+</script>
+</body>
+
+</html>

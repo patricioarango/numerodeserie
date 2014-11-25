@@ -39,7 +39,7 @@ var googleapi = {
                 authWindow.close();
             }
 
-            if (code) { 
+            if (code) {
                 //Exchange the authorization code for an access token
                 $.post('https://accounts.google.com/o/oauth2/token', {
                     code: code[1],
@@ -65,12 +65,12 @@ var googleapi = {
 };
 function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
-    var tamanio = "w780/"; //"original/"; //"w780/"; // or w500 
+    var tamanio = "w780/"; //"original/"; //"w780/"; // or w500
     var query = "2";
     $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
-        for (var i=0; i<data["results"].length; i++) { 
-            if (data["results"][i].poster_path != null) { //solo para imagenes not null 
+        for (var i=0; i<data["results"].length; i++) {
+            if (data["results"][i].poster_path != null) { //solo para imagenes not null
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
             rule2 ="background-size: cover;";
             rule3 ="background-repeat:no-repeat; transition: background 0.5s ease-in;";
@@ -92,7 +92,7 @@ function get_background(){
         $("#precargador").addClass(claserandom);
         //llamamos a la funcion que cambia el fondo cada 3s
         setInterval(function(){cambiar_fondo(maximo)}, 6500);
-        
+
         function cambiar_fondo(maximo) {
             var maximo2 = maximo;
             //sacamos al body la clase que tiene y le ponemos la del precargador
@@ -103,13 +103,13 @@ function get_background(){
             var numero_clase = clase_nueva.substring(2);
             numero_clase = Number(numero_clase);
             if (numero_clase == maximo2) {
-                $("#precargador").addClass("bg1"); 
+                $("#precargador").addClass("bg1");
             }
             else {
-                $("#precargador").addClass("bg" + (numero_clase + 1));  
+                $("#precargador").addClass("bg" + (numero_clase + 1));
             }
         }
-        
+
     },"json");
 }
 
@@ -124,11 +124,11 @@ function successCB() {
 //       alert("tablas creadas");
 }
 //funcion crear db y tablas
-function crearDB() { 
+function crearDB() {
     var db = window.openDatabase(shortName, version, displayName, maxSize);
     db.transaction(populateDB, errorCB, successCB);
 }
-function populateDB(tx) { 
+function populateDB(tx) {
     //tabla usuario
     var sql = "CREATE TABLE IF NOT EXISTS usuario (id unique,firstName,lastName,email,image)";
     tx.executeSql(sql);
@@ -155,20 +155,20 @@ function populateDB(tx) {
     var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
     tx.executeSql(sql4); */
 }
-//insertar usuario 
+//insertar usuario
 function meter_usuario() {
     db = window.openDatabase(shortName, version, displayName, maxSize);
     db.transaction(insertar_usuario, errorCB, successCB);
 }
 function insertar_usuario(tx) {
-    var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + localStorage.usuario_id + "','" + localStorage.usuario_nombre + "','" + localStorage.usuario_apellido + "','" + localStorage.usuario_email + "','" + localStorage.usuario_imagen + "')";                     
+    var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + localStorage.usuario_id + "','" + localStorage.usuario_nombre + "','" + localStorage.usuario_apellido + "','" + localStorage.usuario_email + "','" + localStorage.usuario_imagen + "')";
     tx.executeSql(query);
-}              
+}
 function pedir_autenticacion() {
     $("#login").show();
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
-    $loginButton.on('click', function() { 
+    $loginButton.on('click', function() {
         googleapi.authorize({
             client_id: '150881333908-1ar412eou7ovegc9brhkuhjde4kr5d44.apps.googleusercontent.com',
             client_secret: 'ZG_u5iJYAnTjL3u72lxQEpQr',
@@ -181,13 +181,13 @@ function pedir_autenticacion() {
             //ocultar boton
             $("#login").hide();
             $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                //insertamos el usuario en la db 
+                //insertamos el usuario en la db
                 //meter_usuario();
-                window.localStorage.setItem("usuario_id", data23.id);   
-                window.localStorage.setItem("usuario_nombre", data23.given_name );   
-                window.localStorage.setItem("usuario_apellido", data23.family_name);   
-                window.localStorage.setItem("usuario_email", data23.email);   
-                window.localStorage.setItem("usuario_imagen", data23.picture);   
+                window.localStorage.setItem("usuario_id", data23.id);
+                window.localStorage.setItem("usuario_nombre", data23.given_name );
+                window.localStorage.setItem("usuario_apellido", data23.family_name);
+                window.localStorage.setItem("usuario_email", data23.email);
+                window.localStorage.setItem("usuario_imagen", data23.picture);
                 window.localStorage.setItem("permiso_otorgado","2");
                 window.location.href = 'dashboard.html';
             },"json");
@@ -208,7 +208,7 @@ function onDeviceReady() {
         window.location.href = 'dashboard.html';
     }
     else {
-        
+
         pedir_autenticacion();
     }
 }

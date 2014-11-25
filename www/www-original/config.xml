@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.phonegaptips.googleoauth" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"  xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Series Marker</name>
+    <description>
+        Keep track of your favorite series.
+    </description>
+    <author email="patricioarango@gmail.com" href="http://plus.google.com/+PatricioArango">
+        @patricioarango
+    </author>
+    <access origin="*" />
+    <access origin="http://d3gtl9l2a4fn1j.cloudfront.net" />
+    <access origin="http://image.tmdb.org" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="orientation" value="portrait" />
+     <gap:plugin name="org.li8.inappbrowser" />
+</widget>

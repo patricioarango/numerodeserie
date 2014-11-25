@@ -43,39 +43,39 @@ function AddValueToDB(id_serie,series_name) {
 function UpdateValueFromDB(id_serie,in_production, number_of_episodes,number_of_seasons,poster) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler("update series"), errorHandler); 
+    tx.executeSql('UPDATE series set in_production=?,number_of_episodes=?,number_of_seasons=?,poster=? WHERE id_serie=?', [in_production,number_of_episodes,number_of_seasons,poster,id_serie], nullHandler("update series"), errorHandler);
   });
-} 
-//borrar serie de la DB     
+}
+//borrar serie de la DB
 function DeleteValueFromDB(id_serie) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM series WHERE series.id_serie=?', [id_serie], nullHandler("borrar serie"), errorHandler); 
+    tx.executeSql('DELETE FROM series WHERE series.id_serie=?', [id_serie], nullHandler("borrar serie"), errorHandler);
   });
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM series_se WHERE series_se.id_serie=?', [id_serie], nullHandler("borrar series_se"), errorHandler); 
+    tx.executeSql('DELETE FROM series_se WHERE series_se.id_serie=?', [id_serie], nullHandler("borrar series_se"), errorHandler);
   });
   db.transaction(function(tx) {
-    tx.executeSql('DELETE FROM usuario_se WHERE usuario_se.id_serie=?', [id_serie], nullHandler("borrar usuario_se"), errorHandler); 
+    tx.executeSql('DELETE FROM usuario_se WHERE usuario_se.id_serie=?', [id_serie], nullHandler("borrar usuario_se"), errorHandler);
   });
 }
 function insertSE(id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
   db.transaction(function(tx) {
-    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler("insert into series_se"), errorHandler); 
+    tx.executeSql('INSERT INTO series_se (id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,temp_max) values(?,?,?,?,?,?)', [id_serie,temporada,capitulo_num,capitulo_name,temp_max_cap,cantidad_de_temporadas], nullHandler("insert into series_se"), errorHandler);
   });
 }
 function insertUserSE(id_serie,temporada,capitulo_num,capitulo_name) {
   db = window.openDatabase(shortName, version, displayName, maxSize);
-  db.transaction(function(tx) { 
-    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler("insert into usuario_se"), errorHandler); 
+  db.transaction(function(tx) {
+    tx.executeSql('INSERT INTO usuario_se (id_serie,temporada,capitulo_num,capitulo_name,modificado) values(?,?,?,?,DateTime("now"))', [id_serie,temporada,capitulo_num,capitulo_name], nullHandler("insert into usuario_se"), errorHandler);
   });
 }
 //ADD capitulos por temporada por serie
 function insertar_SE(id_serie,temporada,capitulo) {
     db = window.openDatabase(shortName, version, displayName, maxSize);
     db.transaction(function(tx) {
-        tx.executeSql('INSERT INTO series_se (id_serie, temporada,capitulo) VALUES (?,?,?)', [id_serie,temporada,capitulo], nullHandler("insert series_se"), errorHandler); 
+        tx.executeSql('INSERT INTO series_se (id_serie, temporada,capitulo) VALUES (?,?,?)', [id_serie,temporada,capitulo], nullHandler("insert series_se"), errorHandler);
     });
 }
 //buscador
@@ -83,11 +83,11 @@ function mySearch() {
    var buscador = escape($("#buscador").val());
    var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w342/"; //'w92', 'w154', 'w185', 'w342', 'w500', 'original
-    $.post('http://autoplay.es/phonegap/seriesmarker_search.php', { query: buscador}, function(data) { 
+    $.post('http://autoplay.es/phonegap/seriesmarker_search.php', { query: buscador}, function(data) {
       //console.log(data);
        $("#resultados_varios_contenedor").html(""); //borramos todo
             if (data["total_results"] > 1) { //si hay mas de 1 resultado armamos la lista
-                for (var i=0; i < data["results"].length; i++) { 
+                for (var i=0; i < data["results"].length; i++) {
                    //console.log(data["results"][i].id);
                    var id_serie = data["results"][i].id;
                    var titulo = data["results"][i].name;
@@ -108,7 +108,7 @@ function mySearch() {
                 }  //for
                 // le damos altura a los divs
                 var alto_para_divs = ( ($(".content").width() * 1426) / 1000 );
-                $(".content").height(alto_para_divs); 
+                $(".content").height(alto_para_divs);
           } //if
         else if (data["total_results"] == 1) { //si hay 1 solo resultado
             var id_serie = data["results"][0].id;
@@ -127,14 +127,14 @@ function mySearch() {
             }
             else {  //resultado coincide con la db
               $("#resultados").append("<div class='grid grid-pad' id='resultados_varios_contenedor'><div class='grid grid-pad'><div class='resultado_unico' id='id_serie" + id_serie + "' data-id='" + id_serie + "' data-titulo='" + titulo + "' data-added='1' data-poster='" + poster + "' style='background-image: url(" + poster + ");'><div class='varios_resultados2'><span style='margin-left:5px;'>" + titulo + "</span></div><div class='varios_resultados2' id='estado_added" + id_serie + "'><img src='img/added_w.png' height='30px' /><span style='margin-left:5px;'>Added</span></div><div class='varios_resultados'><img src='img/rating_w.png' height='30px' /><span style='margin-left:5px;'>" + rating + "</span></div></div></div>");
-            }       
+            }
             // le damos altura a los divs
                 var alto_para_div = ( ( ($("body").height() * 0.65) * 1000) / 1426 );
-                $(".resultado_unico").height(alto_para_div); 
+                $(".resultado_unico").height(alto_para_div);
         }
         else  { //no hay resultados
             $("#resultados_varios_contenedor").append("<div id='no_results'>" + "<img src='img/no_results2.png' width='40%' />" + "<div style='padding-top:10%;'>" + "No results. <br>Please type again to search.</div></div>");
-          } 
+          }
     },"json"); //post
 }
 var timer = 0;
@@ -198,7 +198,7 @@ function procesarSerie(id_serie){
                 UpdateValueFromDB(id_serie,json.in_production,json.number_of_episodes,json.number_of_seasons,poster);
                       //ahora vemos cuantos episodes tiene cada temporada
                       var cantidad_de_temporadas = json.number_of_seasons;
-                      for (var i=1; i<=json.number_of_seasons; i++) { 
+                      for (var i=1; i<=json.number_of_seasons; i++) {
                           var url2 = 'https://api.themoviedb.org/3/tv/' + id_serie + '/season/' + i + '?api_key=c4c226b09a5a1bb1875505ebcdafaeea';
                           console.log("numero de serie . url para los epis de cada temporada " + url2);
                           $.ajax({
@@ -210,11 +210,11 @@ function procesarSerie(id_serie){
                               dataType: 'jsonp',
                               success: function(json2) {
                                 var max_capitulos = json2.episodes.length;
-                                for (var j=0; j < json2.episodes.length; j++) { 
+                                for (var j=0; j < json2.episodes.length; j++) {
                                   if (json2.episodes[j].episode_number == '1' && json2.season_number == '1') {
                                     //insert default en tabla de usuario
                                    insertUserSE(id_serie,json2.season_number,json2.episodes[j].episode_number,json2.episodes[j].name);
-                                  } 
+                                  }
                                    insertSE(id_serie,json2.season_number,json2.episodes[j].episode_number,json2.episodes[j].name,max_capitulos,cantidad_de_temporadas);
                                 }
                                 $("#resultados").show();
@@ -223,7 +223,7 @@ function procesarSerie(id_serie){
                                   console.log("error" + e.message);
                               }
                           }); //second ajax call
-                      }//for 
+                      }//for
             },
             error: function(e) {
                 console.log("error" + e.message);
