@@ -8,8 +8,6 @@
 	<title>Series Marker</title>
 	<link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/ripples.min.css" rel="stylesheet">
-    <link href="css/material-wfont.min.css" rel="stylesheet">
 <style>
 body {
 	font-family: 'Montserrat', sans-serif;
@@ -46,7 +44,7 @@ text-transform: uppercase;
 letter-spacing: 1px;
 text-align: center;
 border: 1px solid #FFF;
--webkit-border-radius: 3px; 
+-webkit-border-radius: 3px;
 }
   html, body { margin: 0; padding: 0; }
   .hide { display: none;}
@@ -62,9 +60,6 @@ border: 1px solid #FFF;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-.form-control::-webkit-input-placeholder {
-      color: #e8e8e8;
-    }
 </style>
 <script type="text/javascript">
   WebFontConfig = {
@@ -84,13 +79,13 @@ border: 1px solid #FFF;
 <body class="bg_prim">
 
 	<header>
-		
+
 	</header>
-	
+
 	<section>
 	<div id="brand">SERIESMARKER</div>
-	<div id="bajada">Keep track of your favorite series</div>	
-	<div id="login_contenedor" class="container-fluid" style="display:none;margin-top:50px;">
+	<div id="bajada">Keep track of your favorite series</div>
+	<div id="login_contenedor" class="container-fluid" style="display:none;">
 	<div class="row">
 	<div class="col-xs-2"></div>
 	<div class="col-xs-8">
@@ -102,16 +97,16 @@ border: 1px solid #FFF;
 	 </div>
 			 <!--form-->
 		 	<div class="row">
-		 	<form role="form" action="registro.html">
+		 	<form role="form">
 		 	<div class="col-xs-2"></div>
   			<div class="col-xs-8">
   				<div class="input-group">
-			  		<input type="text" name="nombre" id="nombre" style="border-color:#fff;color:#fff;" class="form-control" placeholder="name" value="" required>
+			  		<input type="text" class="form-control" placeholder="Nombre" value="">
 				</div>
 				<div class="input-group">
-			  		<input type="email" name="email" id="email" style="border-color:#fff;color:#fff;" placeholder="email" class="form-control" value="" required>
+			  		<input type="text" placeholder="Email" class="form-control" value="">
 				</div>
-					<button id="submit" style="width:100%;border:1px solid #fff;color:#fff;" type="submit" class="btn btn-default">Sign in</button>
+					<button style="width:100%;" type="submit" class="btn btn-default">Sign in</button>
 			</div>
   				<div class="col-xs-2"></div>
 		 	</form>
@@ -122,20 +117,13 @@ border: 1px solid #FFF;
 
 	</section>
 	<footer>
-		
+
 	</footer>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
         <script src="css/bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/ripples.min.js"></script>
-        <script src="js/material.min.js"></script>
        <script src="js/index.js"></script>
-       <script>
-            $(document).ready(function() {
-                $.material.init();
-            });
-        </script>
 </body>
 
 </html>

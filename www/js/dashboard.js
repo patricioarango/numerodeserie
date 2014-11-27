@@ -12,6 +12,7 @@ function onDeviceReady() {
     db = window.openDatabase(shortName, version, displayName, maxSize);
   console.log("database opened");
     db.transaction(getSeriesUsuario, transaction_error);
+  get_user_profile();
 }
 
 function transaction_error(tx, error) {
@@ -29,4 +30,8 @@ function getSerieExito(tx, result) {
     var row = result.rows.item(i);
     console.log(row);
   }
+}
+function get_user_profile() {
+  $("#profile_img").attr("src",localStorage.usuario_imagen);
+  $("#profile_name").html(localStorage.usuario_nombre + "!");
 }

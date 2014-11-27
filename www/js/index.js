@@ -5,6 +5,23 @@ var version = '1.0';
 var displayName = 'Seriesmarker';
 var maxSize = 65535;
 
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+    get_background();
+    crearDB();
+    //creamos la db y las tablas
+    var permiso = window.localStorage.getItem("permiso_otorgado");
+    var permiso = 2;
+    if (permiso=="2") {
+        window.location.href = 'dashboard.html';
+    }
+    else {
+
+        pedir_autenticacion();
+    }
+}
+
 var googleapi = {
     authorize: function(options) {
         var deferred = $.Deferred();
@@ -19,16 +36,6 @@ var googleapi = {
 
         //Open the OAuth consent page in the InAppBrowser
         var authWindow = window.open(authUrl, '_blank', 'location=no,toolbar=no');
-
-        //The recommendation is to use the redirect_uri "urn:ietf:wg:oauth:2.0:oob"
-        //which sets the authorization code in the browser's title. However, we can't
-        //access the title of the InAppBrowser.
-        //
-        //Instead, we pass a bogus redirect_uri of "http://localhost", which means the
-        //authorization code will get set in the url. We can access the url in the
-        //loadstart and loadstop events. So if we bind the loadstart event, we can
-        //find the authorization code and close the InAppBrowser after the user
-        //has granted us access to their data.
         $(authWindow).on('loadstart', function(e) {
             var url = e.originalEvent.url;
             var code = /\?code=(.+)$/.exec(url);
@@ -67,9 +74,9 @@ function get_background(){
     var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
     var tamanio = "w780/"; //"original/"; //"w780/"; // or w500 
     var query = "2";
-    $.post('http://autoplay.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
+    $.post('http://autowikipedia.es/phonegap/seriesmarker_get_fondos.php',{ buscar: query }, function(data) {
         var maximo = Number(data["results"].length);
-        for (var i=0; i<data["results"].length; i++) { 
+        for (var i=0; i < maximo; i++) {
             if (data["results"][i].poster_path != null) { //solo para imagenes not null 
             rule1 = ".bg"+i+" { background: url('"+base_url+tamanio+data["results"][i].poster_path+"') center center fixed; ";
             rule2 ="background-size: cover;";
@@ -91,19 +98,21 @@ function get_background(){
         $("#precargador").removeClass("bg2");
         $("#precargador").addClass(claserandom);
         //llamamos a la funcion que cambia el fondo cada 3s
-        setInterval(function(){cambiar_fondo(maximo)}, 6500);
+       var intervalo = setInterval(function(){cambiar_fondo(maximo)}, 6500);
         
         function cambiar_fondo(maximo) {
-            var maximo2 = maximo;
+            //mostramos login
+            $("#login_contenedor").fadeIn(500);
+            var maximo2 = (maximo - 1);
             //sacamos al body la clase que tiene y le ponemos la del precargador
             $("body").switchClass($("body").attr('class'),$('#precargador').attr('class'),"easeOutBounce");
             //clase nueva para el precargador
             var clase_nueva = $('#precargador').attr('class');
             $("#precargador").removeClass(clase_nueva);
-            var numero_clase = clase_nueva.substring(2);
-            numero_clase = Number(numero_clase);
-            if (numero_clase == maximo2) {
+            var numero_clase = Number(clase_nueva.substring(2));
+            if (numero_clase == maximo2 || numero_clase > maximo2) {
                 $("#precargador").addClass("bg1"); 
+               // clearInterval(intervalo); //detener fondo giratorio
             }
             else {
                 $("#precargador").addClass("bg" + (numero_clase + 1));  
@@ -113,6 +122,17 @@ function get_background(){
     },"json");
 }
 
+function nullHandler(testo){
+  //alert(testo);
+};
+
+function successHandler(){
+  console.log("oka");
+};
+
+function errorHandler(tx,error) {
+   console.log('OKA: ' + error.message + ' code: ' + error.code);
+}
 
 //error o success
 function errorCB(err) {
@@ -120,52 +140,23 @@ function errorCB(err) {
 //        alert("Error processing SQL: " + err.message);
 }
 function successCB() {
-        console.log("tablas creadas");
+        //console.log("tablas creadas");
 //       alert("tablas creadas");
 }
-//funcion crear db y tablas
+//crear db y tablas
 function crearDB() { 
     var db = window.openDatabase(shortName, version, displayName, maxSize);
-    db.transaction(populateDB, errorCB, successCB);
+    db.transaction(creacionDB, nullHandler, errorHandler);
 }
-function populateDB(tx) { 
-    //tabla usuario
-    var sql = "CREATE TABLE IF NOT EXISTS usuario (id unique,firstName,lastName,email,image)";
-    tx.executeSql(sql);
-    //tabla series
-    var sql2 = "CREATE TABLE IF NOT EXISTS series (id unique, id_serie,name,in_production,number_of_seasons, number_of_episodes,poster)";
-    tx.executeSql(sql2);
-    //guardar temporadas y capitulos de cada una test_serie.php
-     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id unique,id_serie,temporada,capitulo_num,capitulo_name, capitulo_orden,temp_max,temp_max_cap)";
+function creacionDB(tx) {
+      var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id unique,id_serie ,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
     tx.executeSql(sql3);
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
-    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,temporada,capitulo_num,capitulo_name,modificado)";
+    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
     tx.executeSql(sql4);
-/*
-    //tabla usuario
-    var sql = "CREATE TABLE IF NOT EXISTS usuario (id INTEGER NOT NULL PRIMARY KEY, firstName TEXT NOT NULL, lastName TEXT NOT NULL, email TEXT, image TEXT)";
-    tx.executeSql(sql);
-    //tabla series
-    var sql2 = "CREATE TABLE IF NOT EXISTS series (id INTEGER NOT NULL PRIMARY KEY, id_serie INTEGER,name TEXT, in_production TEXT,number_of_seasons INTEGER, number_of_episodes INTEGER, poster TEXT)";
-    tx.executeSql(sql2);
-    //guardar temporadas y capitulos de cada una test_serie.php
-     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT, capitulo_orden INTEGER,temp_max INTEGER,temp_max_cap INTEGER)";
-    tx.executeSql(sql3);
-    //crear tabla usuario_serie_temporada para guardar los valores del usuario
-    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER NOT NULL PRIMARY KEY,id_serie INTEGER,temporada INTEGER, capitulo_num INTEGER,capitulo_name TEXT,modificado TEXT)";
-    tx.executeSql(sql4); */
 }
-//insertar usuario 
-function meter_usuario() {
-    db = window.openDatabase(shortName, version, displayName, maxSize);
-    db.transaction(insertar_usuario, errorCB, successCB);
-}
-function insertar_usuario(tx) {
-    var query = "insert into usuario (id,firstName,lastName,email,image) values ('" + localStorage.usuario_id + "','" + localStorage.usuario_nombre + "','" + localStorage.usuario_apellido + "','" + localStorage.usuario_email + "','" + localStorage.usuario_imagen + "')";                     
-    tx.executeSql(query);
-}              
+
 function pedir_autenticacion() {
-    $("#login").show();
     var $loginButton = $('#login_img');
     var $loginStatus = $('#login_div');
     $loginButton.on('click', function() { 
@@ -180,9 +171,8 @@ function pedir_autenticacion() {
             var toka_toka=data.access_token;
             //ocultar boton
             $("#login").hide();
-            $.post('http://autoplay.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
-                //insertamos el usuario en la db 
-                //meter_usuario();
+            $.post('http://autowikipedia.es/phonegap/seriesmarker_get_data.php', { parametro: toka_toka}, function(data23) {
+                //insertamos el usuario en la db
                 window.localStorage.setItem("usuario_id", data23.id);   
                 window.localStorage.setItem("usuario_nombre", data23.given_name );   
                 window.localStorage.setItem("usuario_apellido", data23.family_name);   
@@ -198,19 +188,4 @@ function pedir_autenticacion() {
 }
 
 
-function onDeviceReady() {
-    get_background();
-    crearDB();
-    //creamos la db y las tablas
-    var permiso = window.localStorage.getItem("permiso_otorgado");
-    var permiso = 2;
-    if (permiso=="2") {
-        window.location.href = 'dashboard.html';
-    }
-    else {
-        
-        pedir_autenticacion();
-    }
-}
 
-document.addEventListener("deviceready", onDeviceReady, false);
