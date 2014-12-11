@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Series Marker - Search</title>
-    <link rel="stylesheet" type="text/css" href="css/simplegrid.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/simplegrid.css" /> -->
 	<link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/jquery-ui.css" rel="stylesheet">
@@ -30,7 +30,7 @@ header {
 	background-repeat: repeat-x;
 }  
 body {
-
+	height:100%;
 	color: white;
 	background-color: #34495e;
 }
@@ -63,69 +63,27 @@ body {
    width: 100%;
 }
 
-.flat {
-	display: inline-block;
-padding: 15px 0px;
-width: 245px;
-color: #FFF;
-font-size: 16px;
-text-transform: uppercase;
-letter-spacing: 1px;
-text-align: center;
-border: 1px solid #FFF;
--webkit-border-radius: 3px; 
-}
 /* resultados */
 #resultados {
-	margin-top: 30%;
+	margin-top: 20px;
 	width: 100%;
-	height: calc(100% - 8% - 30%)  - 60px;
-	height: calc(100% - 8% - 30%  - 60px);
+	height: calc(100% - 110px);
 }
 .content {
 	background: #ccc;
 	padding: 0px;
 	width: 100%;
-	
 	background-size: cover;
 }
 
-#resultados_contenedor {
+.presentacion {
 	width: 80%;
 	margin-left: 10%;
-}
-.resultado_unico {
-	background-size: cover;
-}
-
-.varios_resultados {
-	height: 30px;
-
-	font-size: 13px;
-	background-image: url(img/negro.png);
-	background-repeat: repeat-x;
-}
-.varios_resultados img {
-	margin-left: 5px;
-	
-}
-.varios_resultados2 {
-	height: 35px;
-
-	font-size: 14px;
-	background-image: url(img/negro.png);
-	background-repeat: repeat-x repeat-y;
-}
-.varios_resultados2 img {
-	margin-left: 5px;
-}
-#no_results {
-	width: 80%;
-	margin-left: 10%;
-	margin-top: 10%;
+	margin-top: 30%;
 	color: white;
 	font-family: 'Lato', sans-serif;
 }
+
 /* navegador*/
 #navegador {
 	list-style: none;
@@ -142,7 +100,65 @@ border: 1px solid #FFF;
 	color: #000000;
 	padding-top: calc (60px * 0.5);
 }
+/* cargando */
+#cargando {
+	color: #e74c3c;
+	float: left;
+	position: absolute;
+	padding: 20px 0;
+	width: 100%;
+	top: 40%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.9);
+	display: block;
+}
+#dialog-overlay {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0; left:0;
+	z-index:3000;
+	display:none;
+}
+#no_hay_resultados {
+	display: none;
+}
+#api_results {
+	height: 100%;
+	display: none;
 
+}
+.resultados_search{
+	margin-left: 10%;
+}
+.una_columna {
+	height: 100%;
+	width: 80%;
+	background-size: cover;
+	background: no-repeat center center;
+}
+.texto_una_columna {
+	font-size: 1.4em;
+	padding-top: 10px;
+	padding-left: 10px;
+	background: url(img/negro.png) repeat;
+}
+.texto_dos_columnas {
+	padding-top: 10px;
+	padding-left: 10px;
+	font-size: 1.15em;
+	width: 50%;
+}
+.dos_columnas {
+	height: 50%;
+	width: 40%;
+	margin-top: 5%;
+	background-size: cover;
+}
+.resultados_search {
+	background: no-repeat center center;
+	background-size: cover;
+}
 </style>
 </head>
 
@@ -164,21 +180,37 @@ border: 1px solid #FFF;
 	</header>
 	
 	<section>
+	<div id="dialog-overlay">
+		<div id="cargando">
+			<i class="fa fa-gear fa-spin fa-1x"></i><i class="fa fa-gear fa-spin fa-3x"></i><i class="fa fa-gear fa-spin fa-2x"></i>
+
+			<p>FETCHING SERIES DATA</p>
+			<div class="row">
+			<div class="col-xs-6"><div id="contador" style="font-size:4em"></div>SEASONS</div>
+			<div class="col-xs-6"><div id="contador2" style="font-size:4em"></div>EPISODES</div>
+			</div>
+		</div>
+	</div>
 	<div id="buscador_contenedor">
 		<div id="input_cont">
 			<input type="text" placeholder="search" id="buscador" name="buscador" class="searchBox texto_black" value="" />
 		</div>
 	</div>
-	<div id="cargando" class="row" style="color:blue;text-align:center;margin-top:20px;display:none;">
-		<i class="fa fa-gear fa-spin fa-1x"></i><i class="fa fa-gear fa-spin fa-3x"></i><i class="fa fa-gear fa-spin fa-2x"></i>
-	</div>
-	<div id="resultados">
-	<div class="grid grid-pad" id="resultados_varios_contenedor">
-	<div id="no_results">
-		<img style="vertical-align: middle;opacity: 0.7;float:left;" src="img/lupa_header.png" width="100px" /> <span style="font-weight:700;">Find your loved show.</span> <span style="font-weight:300;">Add it and go dashboard to start.</span>
-	</div>
-	</div>
+	<div id="resultados" class="content-fluid">
+		<div class="presentacion" id="hola_def">
+			<img style="vertical-align: middle;opacity: 0.7;float:left;" src="img/lupa_header.png" width="100px" /> <span style="font-weight:700;">Find your loved show.</span> <span style="font-weight:300;">Add it and go dashboard to start.</span>
+		</div>
+		<div class="presentacion" id="no_hay_resultados" style="margin-top:10%;">
+			<div class="col-xs-6"><img style="vertical-align: middle;opacity: 0.7;float:left;" src="img/no_results2.png" width="125px" /></div>
+			<div class="col-xs-6" style="margin-top:40px;padding-left:0px;"> <span style="font-weight:700;">No results. </span>
+			<span style="font-weight:300;">Please type again to search.</span>
+			</div>
+		</div>
+		<div id="api_results" class="row">
 
+		</div>
+
+	</div>
 	</section>
 	<footer>
 		
@@ -188,14 +220,6 @@ border: 1px solid #FFF;
         <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
         <script src="css/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/search.js"></script>
-<script>
-$(function(){
-	$(".content").height( (($(window).height() - 60 ) * 0.50) );
-	$("#resultado_unico img").height( (($(window).height() - 60 ) * 0.65) );
-	var ancho = $("#resultado_unico").width();
-	$("#resultado_unico").css("margin-left",(ancho / 4.5) + "px" );
-});
-</script>
 </body>
 
 </html>

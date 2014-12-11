@@ -149,11 +149,8 @@ function crearDB() {
     db.transaction(creacionDB, nullHandler, errorHandler);
 }
 function creacionDB(tx) {
-      var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id unique,id_serie ,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
+      var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER PRIMARY KEY,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster,visto)";
     tx.executeSql(sql3);
-    //crear tabla usuario_serie_temporada para guardar los valores del usuario
-    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
-    tx.executeSql(sql4);
 }
 
 function pedir_autenticacion() {

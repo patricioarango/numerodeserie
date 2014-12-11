@@ -14,4 +14,5 @@
     <preference name="webviewbounce" value="true" />
     <preference name="orientation" value="portrait" />
      <gap:plugin name="org.li8.inappbrowser" />
+     <gap:plugin name="org.apache.cordova.dialogs" />
 </widget>

@@ -13,14 +13,35 @@ function onDeviceReady() {
   console.log("database opened");
     db.transaction(getSeriesUsuario, transaction_error);
   get_user_profile();
+  //traer_series();
+}
+/*//traemos los datos de la db para comparar con results de busqueda
+function getSeriesUsuario() {
+  db.transaction(function(tx) {
+    tx.executeSql('SELECT distinct id_serie FROM series_se', [],
+      function(tx, result) {
+          if (result != null && result.rows != null) {
+            var row = result.rows.item
+              for (var i = 0; i < result.rows.length; i++) {
+                var row = result.rows.item(i);
+                //console.log("idseries en la db" + row.id_serie);
+                traer_capitulo(row.id_serie);
+            }
+          } else { //no hay resultados
+
+          }
+      },nullHandler("tx series en db"),transaction_error);
+  });
+} */
+function transaction_error(tx, error) {
+    console.log(tx);
+}
+function nullHandler(texto){
+  console.log(texto);
 }
 
-function transaction_error(tx, error) {
-    //console.log(tx);
-}
 function getSeriesUsuario(tx) {
-  //var sql = "SELECT * FROM usuario_se use left join series s ON use.id_serie=s.id_serie";
-  var sql = "SELECT series.name as se_name,usuario_se.modificado, usuario_se.id_serie as serie_id, usuario_se.temporada as cap_temp, usuario_se.capitulo_num as cap_nu, usuario_se.capitulo_name as cap_na, series.poster,series.number_of_seasons as nof, series.number_of_episodes as noe, series_se.temp_max_cap as ultimo_capitulo_temporada, series_se.temp_max as ultima_temporada FROM usuario_se LEFT JOIN series ON usuario_se.id_serie=series.id_serie LEFT JOIN series_se ON series_se.id_serie=series.id_serie ORDER BY 2 DESC";
+  var sql = "SELECT distinct id_serie FROM series_se";
   tx.executeSql(sql, [], getSerieExito);
 }
 
@@ -28,7 +49,19 @@ function getSerieExito(tx, result) {
   var row = result.rows.item;
   for (var i = 0; i < result.rows.length; i++) {
     var row = result.rows.item(i);
-    console.log(row);
+    //console.log(row);
+    traer_capitulo(row.id_serie);
+  }
+}
+function traer_capitulo(id_serie) {
+  db.transaction(function(tx) {
+    tx.executeSql('SELECT * FROM series_se WHERE id_serie=? AND visto=1 ORDER BY id DESC LIMIT 1', [id_serie],mostrar_capitulos,nullHandler("tx datos capitulo"),transaction_error);
+  });
+}
+function mostrar_capitulos(tx,result){
+  for (var i = 0; i < result.rows.length; i++) {
+      var row = result.rows.item(i);
+      console.log("cap vistos" + row.cap_name);
   }
 }
 function get_user_profile() {

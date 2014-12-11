@@ -80,11 +80,11 @@ function creacionDB(tx) {
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
     var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,temporada,capitulo_num,capitulo_name,modificado)";
     tx.executeSql(sql4);*/
-     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id unique,id_serie ,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
+     var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER PRIMARY KEY,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster,visto)";
     tx.executeSql(sql3);
     //crear tabla usuario_serie_temporada para guardar los valores del usuario
-    var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id unique,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
-    tx.executeSql(sql4);
+    /*var sql4 = "CREATE TABLE IF NOT EXISTS usuario_se (id INTEGER PRIMARY KEY,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster)";
+    tx.executeSql(sql4);*/
   }
 function borrarDB() { 
     var db = window.openDatabase(shortName, version, displayName, maxSize);
@@ -92,11 +92,11 @@ function borrarDB() {
 }
 function borracionDB(tx) { 
 var sql = "DROP TABLE series";
-    tx.executeSql(sql);
+    //tx.executeSql(sql);
 var sql2 = "DROP TABLE series_se";
     tx.executeSql(sql2);
     var sql3 = "DROP TABLE usuario";
-    tx.executeSql(sql3); 
+    //tx.executeSql(sql3);
     var sql4 = "DROP TABLE usuario_se";
     tx.executeSql(sql4);
  
