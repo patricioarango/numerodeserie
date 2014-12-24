@@ -62,10 +62,7 @@ section {
 .dropdown-menu{
 
 }
-#lista_serie ul {
-    height: 100%;
-}
-#lista_serie li {
-    padding: 0px;
-    height: 50%;
+.lista_serie {
+    padding: 60% 0px;
+    margin-right: 50%;
 }

@@ -149,7 +149,7 @@ function crearDB() {
     db.transaction(creacionDB, nullHandler, errorHandler);
 }
 function creacionDB(tx) {
-      var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER PRIMARY KEY,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,temp_max_cap,serie_poster,temp_poster,visto)";
+      var sql3 = "CREATE TABLE IF NOT EXISTS series_se (id INTEGER PRIMARY KEY,id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_temporada,cap_num,cap_name,cap_plot,cap_puntaje,temp_max_cap,serie_poster,temp_poster,visto,modificado)";
     tx.executeSql(sql3);
 }
 

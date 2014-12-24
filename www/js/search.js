@@ -189,8 +189,10 @@ function procesarSerie(id_serie){
                                 cap_num = json2.episodes[j].episode_number;
                                 cap_temporada = json2.season_number;
                                 cap_name = json2.episodes[j].name;
+                                cap_plot = json2.episodes[j].overview;
+                                cap_puntaje = json2.episodes[j].vote_average;
                                 temp_poster = json2.poster_path;
-                                insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto);
+                                insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje);
                             	}
 
                             },
@@ -207,7 +209,7 @@ function procesarSerie(id_serie){
         });
 }
 numero_insert = 1;
-function insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto) {
+function insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje) {
 	/*console.log("id_serie" + id_serie);
 	console.log("serie_name" + serie_name);
 	console.log("in_production" + in_production);
@@ -219,7 +221,7 @@ function insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes
 	console.log("temp_max_cap" + temp_max_cap);
 	console.log("temp_poster" + temp_poster);*/
 	db.transaction(function(tx) {
-    tx.executeSql('INSERT INTO series_se (id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto) values(?,?,?,?,?,?,?,?,?,?,?,?)', [id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,vist]o, function(tx, results){ //funcion para mensaje
+    tx.executeSql('INSERT INTO series_se (id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,modificado,cap_plot) values(?,?,?,?,?,?,?,?,?,?,?,?,DateTime("now"),?,?)', [id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje], function(tx, results){ //funcion para mensaje
                 mostrar_stats(serie_seasons,serie_episodes,numero_insert);
                 ++numero_insert;
             }, transaction_error);
