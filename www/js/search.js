@@ -137,7 +137,7 @@ function procesarSerie(id_serie){
    var url ='https://api.themoviedb.org/3/tv/' + id_serie + '?api_key=c4c226b09a5a1bb1875505ebcdafaeea';
    var base_url = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/";
    var tamanio = "original/"; //'w92', 'w154', 'w185', w780 'w342', 'w500', 'original
-   console.log(url);
+   //console.log(url);
    var id_serie;
    var serie_name;
    var in_production;
@@ -219,9 +219,13 @@ function insertSE(id_serie,serie_name,in_production,serie_seasons,serie_episodes
 	console.log("cap_name" + cap_name);
 	console.log("cap_temporada" + cap_temporada);
 	console.log("temp_max_cap" + temp_max_cap);
-	console.log("temp_poster" + temp_poster);*/
+  console.log("temp_poster" + temp_poster);
+  console.log("visto" + visto);
+  console.log("cap_plot" + cap_plot);
+	console.log("cap_puntaje" + cap_puntaje);
+  //throw new Error("my error message");*/
 	db.transaction(function(tx) {
-    tx.executeSql('INSERT INTO series_se (id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,modificado,cap_plot) values(?,?,?,?,?,?,?,?,?,?,?,?,DateTime("now"),?,?)', [id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje], function(tx, results){ //funcion para mensaje
+    tx.executeSql('INSERT INTO series_se (id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje,modificado) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,DateTime("now"))', [id_serie,serie_name,in_production,serie_seasons,serie_episodes,cap_num,cap_name,cap_temporada,temp_max_cap,serie_poster,temp_poster,visto,cap_plot,cap_puntaje], function(tx, results){ //funcion para mensaje
                 mostrar_stats(serie_seasons,serie_episodes,numero_insert);
                 ++numero_insert;
             }, transaction_error);

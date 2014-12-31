@@ -66,3 +66,34 @@ section {
     padding: 60% 0px;
     margin-right: 50%;
 }
+.cap_plot {
+    max-width: calc(100% - 29px);
+    position: absolute;
+    padding: 20px 0px;
+    top: 150px;
+    left: 30px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+.info_rojo {
+    color: #e74c3c;
+}
+.actualizado_msg_seen {
+    border-radius: 40px;
+    position: absolute;
+    padding: 10px 100px;
+    top: 50px;
+    left: 30px;
+    color: #3498db;
+    background: rgba(0, 0, 0, 0.8);
+}
+.actualizado_msg_unseen {
+    border-radius: 40px;
+    position: absolute;
+    padding: 10px 100px;
+    top: 50px;
+    left: 30px;
+    color: #f39c12;
+    background: rgba(0, 0, 0, 0.8);
+}
