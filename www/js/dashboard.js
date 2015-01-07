@@ -31,7 +31,7 @@ function nullHandler(texto){
   console.log(texto);
 }
 function getSeriesUsuario(tx) {
-  var sql = "SELECT id_serie FROM series_se GROUP BY id_serie ORDER BY max(modificado) DESC";
+  var sql = "SELECT id_serie,max(modificado) FROM series_se GROUP BY id_serie ORDER BY max(modificado) DESC";
   tx.executeSql(sql, [], getSerieExito);
 }
 function getSerieExito(tx, result) {
